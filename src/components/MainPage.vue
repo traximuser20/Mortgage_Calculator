@@ -3,11 +3,11 @@
     <div>
       <div class="flex flex-row items-center px-auto">
         <p class="font-bold text-[4rem] text-black mr-4">$</p>
-        <p class="font-epilogue font-bold text-[5rem] text-black w-64">
+        <p class="font-epilogue font-bold text-[5rem] text-black w-96">
           {{ props.totalValue }}
         </p>
         <div class="bg-slate-300 h-32 w-0.5 mx-8"></div>
-        <p class="font-epilogue font-normal text-[19px] text-black">
+        <p class="font-sans font-normal text-[29px] text-black">
           Your estimated Monthly payment
         </p>
       </div>
@@ -24,17 +24,17 @@
                   type="doughnut"
                   :data="pieData"
                   :options="pieOptions"
-                  class="w-[550px] "
+                  class="w-[550px]"
                 />
               </div>
               <div
-                class="bg-gray-100 mt-6 rounded-xl px-4 w-72 mx-auto justify-center shadow-xl"
+                class="bg-gray-100 mt-6 rounded-xl px-4 w-80 mx-auto justify-center shadow-xl"
               >
                 <div class="flex items-center">
                   <div
                     class="bg-[#0F172A] rounded-full h-3 w-3 top-3 mr-3"
                   ></div>
-                  <p class="font-bold">Principal & Interest : $1653</p>
+                  <p class="font-bold">Principal & Interest : ${{ useCalculationsStore().fianceProperty.principal }}</p>
                 </div>
                 <div class="flex items-center px-0 mt-0">
                   <div
@@ -58,13 +58,13 @@
                   <div
                     class="bg-[#EAB308] rounded-full h-3 w-3 top-3 mr-3"
                   ></div>
-                  <p class="font-bold">HOA Fees : $0</p>
+                  <p class="font-bold">HOA Fees : ${{ useCalculationsStore().fianceProperty.hoaFees }}</p>
                 </div>
                 <div class="flex items-center px-0 mt-0">
                   <div
                     class="bg-[#5457CD] rounded-full h-3 w-3 top-3 mr-3"
                   ></div>
-                  <p class="font-bold">PMI : $160</p>
+                  <p class="font-bold">PMI : ${{ useCalculationsStore().fianceProperty.pmiMonthly }}</p>
                 </div>
               </div>
             </div>
@@ -129,6 +129,239 @@
               </div>
             </div>
             <div class="bg-slate-300 mx-8 h-0.5 w-full"></div>
+            <div class="flex my-6 ml-3">
+              <div class="w-56 mx-12">
+                <div class="bg-white text-xl cursor-pointer hover:underline">
+                  + Add Extra Payments
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-center pl-14">
+              <div class="w-10">
+                <div
+                  class="h-6 w-6 bg-[#76DB9B] mr-3 hover:h-8 hover:w-8 transition-all duration-200 cursor-pointer"
+                ></div>
+              </div>
+              <div class="grid grid-cols-3">
+                <div class="col-span-2">
+                  <p
+                    class="font-epilogue font-normal text-[29px] text-black w-full"
+                  >
+                    Home insurance (per year)
+                  </p>
+                </div>
+                <div class="col-span-1 text-right">
+                  <div
+                    class="flex items-center border-2 border-black focus:border-black hover:border-black active:border-black"
+                  >
+                    <p class="text-2xl mx-4">+</p>
+                    <input
+                      v-model="
+                        useCalculationsStore().fianceProperty.homeInsurance
+                      "
+                      type="text"
+                      class="border-1 h-10 text-xl w-44 font-extrabold"
+                    />
+                    <button
+                      :class="
+                        !useCalculationsStore().homeInsuranceValue
+                          ? 'bg-black text-white'
+                          : 'bg-white text-black'
+                      "
+                      @click="useCalculationsStore().homeInsurancePercentage()"
+                      class="font-semibold text-xl h-10 w-10"
+                      :disabled="
+                        !useCalculationsStore().homeInsuranceValue && true
+                      "
+                    >
+                      %
+                    </button>
+                    <button
+                      :class="
+                        useCalculationsStore().homeInsuranceValue
+                          ? 'bg-black text-white'
+                          : 'bg-white text-black'
+                      "
+                      @click="useCalculationsStore().homeInsuranceAmount()"
+                      class="font-semibold text-xl h-10 w-10"
+                      :disabled="
+                        useCalculationsStore().homeInsuranceValue && true
+                      "
+                    >
+                      $
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-center pl-14">
+              <div class="w-10">
+                <div
+                  class="h-6 w-6 bg-[#C93D82] mr-3 hover:h-8 hover:w-8 transition-all duration-200 cursor-pointer"
+                ></div>
+              </div>
+              <div class="grid grid-cols-3">
+                <div class="col-span-2">
+                  <p
+                    class="font-epilogue font-normal text-[29px] text-black w-full"
+                  >
+                    Property Taxes (per year)
+                  </p>
+                </div>
+                <div class="col-span-1 text-right">
+                  <div
+                    class="flex items-center border-2 border-black focus:border-black hover:border-black active:border-black"
+                  >
+                    <p class="text-2xl mx-4">+</p>
+                    <input
+                      v-model="
+                        useCalculationsStore().fianceProperty.propertyTax
+                      "
+                      type="text"
+                      class="border-1 h-10 text-xl w-44 font-extrabold"
+                    />
+                    <button
+                      :class="
+                        !useCalculationsStore().propertyTaxValue
+                          ? 'bg-black text-white'
+                          : 'bg-white text-black'
+                      "
+                      @click="useCalculationsStore().propertyTaxPercentage()"
+                      class="font-semibold text-xl h-10 w-10"
+                      :disabled="
+                        !useCalculationsStore().propertyTaxValue && true
+                      "
+                    >
+                      %
+                    </button>
+                    <button
+                      :class="
+                        useCalculationsStore().propertyTaxValue
+                          ? 'bg-black text-white'
+                          : 'bg-white text-black'
+                      "
+                      @click="useCalculationsStore().propertyTaxAmount()"
+                      class="font-semibold text-xl h-10 w-10"
+                      :disabled="
+                        useCalculationsStore().propertyTaxValue && true
+                      "
+                    >
+                      $
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-center pl-14">
+              <div class="w-10">
+                <div
+                  class="h-6 w-6 bg-[#EAB308] mr-3 hover:h-8 hover:w-8 transition-all duration-200 cursor-pointer"
+                ></div>
+              </div>
+              <div class="grid grid-cols-3">
+                <div class="col-span-2">
+                  <p
+                    class="font-epilogue font-normal text-[29px] text-black w-full"
+                  >
+                    HOA Fees (per month)
+                  </p>
+                </div>
+                <div class="col-span-1 text-right">
+                  <div
+                    class="flex items-center border-2 border-black focus:border-black hover:border-black active:border-black"
+                  >
+                    <p class="text-2xl mx-4">+</p>
+                    <button
+                      class="bg-white text-black font-bold text-xl h-10 w-12"
+                      disabled="true"
+                    >
+                      $
+                    </button>
+                    <input
+                      v-model="useCalculationsStore().fianceProperty.hoaFees"
+                      type="text"
+                      class="border-1 h-10 text-xl w-52 font-extrabold px-3"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-center pl-14">
+              <div class="w-10">
+                <div
+                  class="h-6 w-6 bg-[#5457CD] mr-3 hover:h-8 hover:w-8 transition-all duration-200 cursor-pointer"
+                ></div>
+              </div>
+              <div class="grid grid-cols-3">
+                <div class="col-span-2">
+                  <p
+                    class="font-epilogue font-normal text-[29px] text-black w-full"
+                  >
+                    PMI (per year)
+                  </p>
+                </div>
+                <div class="col-span-1 text-right">
+                  <div
+                    class="flex items-center border-2 border-black focus:border-black hover:border-black active:border-black"
+                  >
+                    <p class="text-2xl mx-4">+</p>
+                    <input
+                      v-model="useCalculationsStore().fianceProperty.pmi"
+                      type="text"
+                      class="border-1 h-10 text-xl w-44 font-extrabold"
+                    />
+                    <button
+                      :class="
+                        !useCalculationsStore().pmiValue
+                          ? 'bg-black text-white'
+                          : 'bg-white text-black'
+                      "
+                      @click="useCalculationsStore().pmiPercentage()"
+                      class="font-semibold text-xl h-10 w-10"
+                      :disabled="!useCalculationsStore().pmiValue && true"
+                    >
+                      %
+                    </button>
+                    <button
+                      :class="
+                        useCalculationsStore().pmiValue
+                          ? 'bg-black text-white'
+                          : 'bg-white text-black'
+                      "
+                      @click="useCalculationsStore().pmiAmount()"
+                      class="font-semibold text-xl h-10 w-10"
+                      :disabled="useCalculationsStore().pmiValue && true"
+                    >
+                      $
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-3 pl-14">
+              <div class="col-span-2 justify-start mx-auto w-full">
+                <div class="border-2 border-black border-solid px-5">
+                  <p class="font-sans font-extrabold text-[22px] text-black">
+                    Total
+                    {{ useCalculationsStore().paymentFrequencyType() }} Payment
+                  </p>
+                </div>
+              </div>
+              <div class="col-span-1 justify-end mx-auto w-full">
+                <div class="border-2 border-black border-solid flex">
+                  <p
+                    class="font-sans font-extrabold text-[22px] text-black px-5 w-8"
+                  >
+                    $
+                  </p>
+                  <p
+                    class="font-sans font-extrabold text-[22px] text-black px-10"
+                  >
+                    1,226.01
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <h1
@@ -169,6 +402,7 @@
 </template>
 <script setup>
 import { ref, onMounted } from "vue";
+import { useCalculationsStore } from "../store/calculations";
 
 const props = defineProps({
   totalValue: Number,
@@ -386,7 +620,7 @@ const setPieData = () => {
           documentStyle.getPropertyValue("--yellow-500"),
           documentStyle.getPropertyValue("--indigo-600"),
         ],
-        
+
         hoverBackgroundColor: [
           documentStyle.getPropertyValue("--surface-700"),
           documentStyle.getPropertyValue("--blue-200"),

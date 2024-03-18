@@ -83,7 +83,7 @@
                 ? 'bg-black text-white'
                 : 'bg-white text-black'
             "
-            @click="useCalculationsStore().loanLengthValue = false"
+            @click="useCalculationsStore().loanLengthYear()"
             class="font-semibold text-xl h-10 w-10"
           >
             Yr
@@ -92,7 +92,7 @@
             :class="
               useCalculationsStore().loanLengthValue ? 'bg-black text-white' : 'bg-white text-black'
             "
-            @click="useCalculationsStore().loanLengthValue = true"
+            @click="useCalculationsStore().loanLengthMonth()"
             class="font-semibold text-xl h-10 w-10"
           >
             Mo
@@ -111,9 +111,9 @@
           <input
             v-model="useCalculationsStore().fianceProperty.interestRate"
             type="text"
-            class="border-1 h-10 text-xl"
+            class="border-1 h-10 text-xl w-72"
           />
-          <button class="bg-black text-white font-semibold text-xl h-10 w-10">
+          <button class="bg-white text-black font-bold text-xl h-10 w-14" disabled="true">
             %
           </button>
         </div>
@@ -138,8 +138,10 @@
                 ? 'bg-black text-white'
                 : 'bg-white text-black'
             "
-            @click="useCalculationsStore().oneTimeExpensesValue = false"
+            @click="useCalculationsStore().oneTimePercentage()"
             class="font-semibold text-xl h-10 w-10"
+            :disabled="!useCalculationsStore().oneTimeExpensesValue && true"
+
           >
             %
           </button>
@@ -149,8 +151,9 @@
                 ? 'bg-black text-white'
                 : 'bg-white text-black'
             "
-            @click="useCalculationsStore().oneTimeExpensesValue = true"
+            @click="useCalculationsStore().oneTimeAmount()"
             class="font-semibold text-xl h-10 w-10"
+            :disabled="useCalculationsStore().oneTimeExpensesValue && true"
           >
             $
           </button>
@@ -168,7 +171,6 @@
             type="date"
             id="start_date"
             name="start_date"
-            value="2024-03-12"
             class="shadow appearance-none border rounded h-10 w-80 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
