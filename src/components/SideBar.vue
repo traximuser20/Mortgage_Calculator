@@ -35,7 +35,7 @@
             v-model="useCalculationsStore().fianceProperty.downPayment"
             type="text"
             class="border-1 h-10 text-xl"
-             @input="useCalculationsStore().mortgageCalculation()"
+            @input="useCalculationsStore().mortgageCalculation()"
           />
           <button
             :class="
@@ -90,7 +90,9 @@
           </button>
           <button
             :class="
-              useCalculationsStore().loanLengthValue ? 'bg-black text-white' : 'bg-white text-black'
+              useCalculationsStore().loanLengthValue
+                ? 'bg-black text-white'
+                : 'bg-white text-black'
             "
             @click="useCalculationsStore().loanLengthMonth()"
             class="font-semibold text-xl h-10 w-10"
@@ -113,7 +115,10 @@
             type="text"
             class="border-1 h-10 text-xl w-72"
           />
-          <button class="bg-white text-black font-bold text-xl h-10 w-14" disabled="true">
+          <button
+            class="bg-white text-black font-bold text-xl h-10 w-14"
+            disabled="true"
+          >
             %
           </button>
         </div>
@@ -141,7 +146,6 @@
             @click="useCalculationsStore().oneTimePercentage()"
             class="font-semibold text-xl h-10 w-10"
             :disabled="!useCalculationsStore().oneTimeExpensesValue && true"
-
           >
             %
           </button>
@@ -171,7 +175,7 @@
             type="date"
             id="start_date"
             name="start_date"
-            class="shadow appearance-none border rounded h-10 w-80 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            class="h-10 w-[340px] py-2 px-3 text-2xl"
           />
         </div>
       </div>
@@ -208,15 +212,16 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onBeforeMount, onMounted, ref } from "vue";
 import { useCalculationsStore } from "../store/calculations";
 import MainPage from "../components/MainPage.vue";
 
 const mortgagePayment = ref(0);
+useCalculationsStore().mortgageCalculation();
+
+// https://westcaprealestate.com/mortgage-calculator/  // Mortgage Calculator
 
 //fUNCTIONS
-
-
 
 // onMounted(() => {
 //   propertyFinancing(fianceProperty.value);

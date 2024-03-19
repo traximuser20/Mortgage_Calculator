@@ -12,15 +12,17 @@ export const useCalculationsStore = defineStore({
       oneTimeExpenses: 3,
       startDate: moment().locale("en").format("YYYY-MM-DD"),
       paymentFrequency: "",
-      principal: 0,
       homeInsurance: 0.35,
       propertyTax: 1.25,
       hoaFees: 0,
       pmi: 0.625,
       pmiMonthly: 0,
-      homeInsuranceMonthly: 0,
+      extraPayments: 0,
       propertyTaxMonthly: 0,
+      homeInsuranceMonthly: 0,
+      monthlyInterestRate: 0,
     },
+    valuesArray: [],
     downValue: false,
     disableDownPercent: false,
     loanLengthValue: false,
@@ -132,24 +134,27 @@ export const useCalculationsStore = defineStore({
       }
     },
     mortgageCalculation() {
-      this.fianceProperty.principal =
+      let principal;
+      principal =
         this.fianceProperty.homeValue *
         (1 - this.fianceProperty.downPayment / 100);
 
       // Add one-time expenses to the principal
-      this.fianceProperty.principal +=
+      principal +=
         (this.fianceProperty.homeValue * this.fianceProperty.oneTimeExpenses) /
         100;
 
       // Convert annual interest rate to monthly and percentage to decimal
       let monthlyInterestRate = this.fianceProperty.interestRate / 100 / 12;
 
+      this.fianceProperty.monthlyInterestRate = (principal / 10/ 12).toFixed(0);
+
       // Convert loan length from years to months
       let loanLengthMonths = this.fianceProperty.loanLength * 12;
 
       // Calculate monthly payment without including additional costs
       let monthlyPaymentWithoutAdditionalCosts =
-        (this.fianceProperty.principal *
+        (principal *
           monthlyInterestRate *
           Math.pow(1 + monthlyInterestRate, loanLengthMonths)) /
         (Math.pow(1 + monthlyInterestRate, loanLengthMonths) - 1);
@@ -159,12 +164,25 @@ export const useCalculationsStore = defineStore({
         (this.fianceProperty.homeValue *
           (this.fianceProperty.homeInsurance / 100)) /
         12;
+
+        this.fianceProperty.homeInsuranceMonthly = ((this.fianceProperty.homeValue *
+          (this.fianceProperty.homeInsurance / 100)) /
+        12).toFixed(0);
+        
       let propertyTaxMonthly =
         (this.fianceProperty.homeValue *
           (this.fianceProperty.propertyTax / 100)) /
         12;
-      this.fianceProperty.pmiMonthly =
-        ((this.fianceProperty.principal * (this.fianceProperty.pmi / 100)) / 12).toFixed(0);
+
+        this.fianceProperty.propertyTaxMonthly = ((this.fianceProperty.homeValue *
+          (this.fianceProperty.propertyTax / 100)) /
+        12).toFixed(0);
+
+        let pmiMonthly = ((principal * (this.fianceProperty.pmi / 100)) / 12)
+
+        this.fianceProperty.pmiMonthly =
+        ((principal * (this.fianceProperty.pmi / 100)) / 12).toFixed(0);
+        
 
       // Calculate total monthly payment including additional costs
       let totalMonthlyPayment =
@@ -227,48 +245,48 @@ export const useCalculationsStore = defineStore({
       // }
       // this.calculations = (monthlyPayment+homeInsuranceMonthly+propertyTaxMonthly+pmiMonthly).toFixed(2);
 
-    //   const calculateMonthlyPayment = () => {
-    //     // Calculate the principal loan amount
-    //     let principal = homeValue * (1 - downPaymentPercentage / 100);
-    
-    //     // Add one-time expenses to the principal
-    //     principal += homeValue * oneTimeExpensesPercentage / 100;
-    
-    //     // Convert annual interest rate to monthly and percentage to decimal
-    //     let monthlyInterestRate = (interestRate / 100) / 12;
-    
-    //     // Convert loan length from years to months
-    //     let loanLengthMonths = loanLengthYears * 12;
-    
-    //     // Calculate monthly payment without including additional costs
-    //     let monthlyPaymentWithoutAdditionalCosts = principal * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, loanLengthMonths) /
-    //         (Math.pow(1 + monthlyInterestRate, loanLengthMonths) - 1);
-    
-    //     // Calculate additional costs per month
-    //     let homeInsuranceMonthly = homeValue * (homeInsuranceRate / 100) / 12;
-    //     let propertyTaxMonthly = homeValue * (propertyTaxRate / 100) / 12;
-    //     let pmiMonthly = (principal * (pmiRate / 100)) / 12;
-    
-    //     // Calculate total monthly payment including additional costs
-    //     let totalMonthlyPayment = monthlyPaymentWithoutAdditionalCosts + homeInsuranceMonthly + propertyTaxMonthly + pmiMonthly;
-    
-    //     return totalMonthlyPayment.toFixed(2); // Return the result rounded to 2 decimal places
-    // }
-    
-    // // Example usage
-    // let homeValue = 350000;
-    // let downPaymentPercentage = 12;
-    // let loanLengthYears = 30;
-    // let interestRate = 5;
-    // let oneTimeExpensesPercentage = 3;
-    // let homeInsuranceRate = 0.14;
-    // let propertyTaxRate = 0.15;
-    // let pmiRate = 0.73;
-    
-    // let monthlyPayment = calculateMonthlyPayment(homeValue, downPaymentPercentage, loanLengthYears, interestRate, oneTimeExpensesPercentage, homeInsuranceRate, propertyTaxRate, pmiRate);
-    // console.log("Monthly Mortgage Payment (including additional costs): $" + monthlyPayment);
-    
-    //   return this.calculations;
+      //   const calculateMonthlyPayment = () => {
+      //     // Calculate the principal loan amount
+      //     let principal = homeValue * (1 - downPaymentPercentage / 100);
+
+      //     // Add one-time expenses to the principal
+      //     principal += homeValue * oneTimeExpensesPercentage / 100;
+
+      //     // Convert annual interest rate to monthly and percentage to decimal
+      //     let monthlyInterestRate = (interestRate / 100) / 12;
+
+      //     // Convert loan length from years to months
+      //     let loanLengthMonths = loanLengthYears * 12;
+
+      //     // Calculate monthly payment without including additional costs
+      //     let monthlyPaymentWithoutAdditionalCosts = principal * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, loanLengthMonths) /
+      //         (Math.pow(1 + monthlyInterestRate, loanLengthMonths) - 1);
+
+      //     // Calculate additional costs per month
+      //     let homeInsuranceMonthly = homeValue * (homeInsuranceRate / 100) / 12;
+      //     let propertyTaxMonthly = homeValue * (propertyTaxRate / 100) / 12;
+      //     let pmiMonthly = (principal * (pmiRate / 100)) / 12;
+
+      //     // Calculate total monthly payment including additional costs
+      //     let totalMonthlyPayment = monthlyPaymentWithoutAdditionalCosts + homeInsuranceMonthly + propertyTaxMonthly + pmiMonthly;
+
+      //     return totalMonthlyPayment.toFixed(2); // Return the result rounded to 2 decimal places
+      // }
+
+      // // Example usage
+      // let homeValue = 350000;
+      // let downPaymentPercentage = 12;
+      // let loanLengthYears = 30;
+      // let interestRate = 5;
+      // let oneTimeExpensesPercentage = 3;
+      // let homeInsuranceRate = 0.14;
+      // let propertyTaxRate = 0.15;
+      // let pmiRate = 0.73;
+
+      // let monthlyPayment = calculateMonthlyPayment(homeValue, downPaymentPercentage, loanLengthYears, interestRate, oneTimeExpensesPercentage, homeInsuranceRate, propertyTaxRate, pmiRate);
+      // console.log("Monthly Mortgage Payment (including additional costs): $" + monthlyPayment);
+
+      //   return this.calculations;
     },
   },
 });

@@ -19,11 +19,12 @@
         <div class="flex flex-row">
           <div class="flex flex-row justify-center">
             <div class="">
-              <div class="card flex">
+              <div class="flex w-[600px]">
                 <Chart
                   type="doughnut"
                   :data="pieData"
                   :options="pieOptions"
+                  :plugins="plugins"
                   class="w-[550px]"
                 />
               </div>
@@ -34,37 +35,61 @@
                   <div
                     class="bg-[#0F172A] rounded-full h-3 w-3 top-3 mr-3"
                   ></div>
-                  <p class="font-bold">Principal & Interest : ${{ useCalculationsStore().fianceProperty.principal }}</p>
+                  <p class="font-bold">
+                    Principal & Interest : ${{
+                      useCalculationsStore().fianceProperty.monthlyInterestRate
+                    }}
+                  </p>
                 </div>
                 <div class="flex items-center px-0 mt-0">
                   <div
                     class="bg-[#609AF8] rounded-full h-3 w-3 top-3 mr-3"
                   ></div>
-                  <p class="font-bold">Extra Payments : $0</p>
+                  <p class="font-bold">
+                    Extra Payments : ${{
+                      useCalculationsStore().fianceProperty.extraPayments
+                    }}
+                  </p>
                 </div>
                 <div class="flex items-center px-0 mt-0">
                   <div
                     class="bg-[#76DB9B] rounded-full h-3 w-3 top-3 mr-3"
                   ></div>
-                  <p class="font-bold">Home Insurance : $102</p>
+                  <p class="font-bold">
+                    Home Insurance : ${{
+                      useCalculationsStore().fianceProperty.homeInsuranceMonthly
+                    }}
+                  </p>
                 </div>
                 <div class="flex items-center px-0 mt-0">
                   <div
                     class="bg-[#C93D82] rounded-full h-3 w-3 top-3 mr-3"
                   ></div>
-                  <p class="font-bold">Property Taxes : $365</p>
+                  <p class="font-bold">
+                    Property Taxes : ${{
+                      useCalculationsStore().fianceProperty.propertyTaxMonthly
+                    }}
+                  </p>
                 </div>
                 <div class="flex items-center px-0 mt-0">
                   <div
                     class="bg-[#EAB308] rounded-full h-3 w-3 top-3 mr-3"
                   ></div>
-                  <p class="font-bold">HOA Fees : ${{ useCalculationsStore().fianceProperty.hoaFees }}</p>
+                  <p class="font-bold">
+                    HOA Fees : ${{
+                      useCalculationsStore().fianceProperty.hoaFees
+                    }}
+                  </p>
                 </div>
                 <div class="flex items-center px-0 mt-0">
                   <div
                     class="bg-[#5457CD] rounded-full h-3 w-3 top-3 mr-3"
                   ></div>
-                  <p class="font-bold">PMI : ${{ useCalculationsStore().fianceProperty.pmiMonthly }}</p>
+                  <p class="font-bold">
+                    PMI : ${{
+                      useCalculationsStore().fianceProperty.pmiMonthly
+                    }}
+                  </p>
                 </div>
               </div>
             </div>
@@ -76,17 +101,15 @@
               Customize your mortgage payment
             </h1>
             <div class="bg-slate-300 mx-8 h-0.5 w-full"></div>
-            <div class="flex items-center mt-4 justify-center">
+            <div class="flex items-center mt-4 justify-center pl-14">
               <div class="w-10">
                 <div
                   class="h-6 w-6 bg-[#0F172A] mr-3 hover:h-8 hover:w-8 transition-all duration-200 cursor-pointer"
                 ></div>
               </div>
-              <div class="grid grid-cols-3 gap-20">
-                <div class="col-span-1 text-center">
-                  <p
-                    class="font-epilogue font-normal text-[29px] text-black w-full"
-                  >
+              <div class="grid grid-cols-3 w-full">
+                <div class="col-span-1 text-left">
+                  <p class="font-epilogue font-normal text-[29px] text-black">
                     Principal & Interest
                   </p>
                 </div>
@@ -97,22 +120,22 @@
                 </div>
                 <div class="col-span-1 text-right">
                   <p class="font-epilogue font-bold text-[29px] text-black">
-                    1653.41
+                    {{
+                      useCalculationsStore().fianceProperty.monthlyInterestRate
+                    }}
                   </p>
                 </div>
               </div>
             </div>
-            <div class="flex items-center justify-center">
+            <div class="flex items-center justify-center pl-14">
               <div class="w-10">
                 <div
                   class="h-6 w-6 bg-[#609AF8] mr-3 hover:h-8 hover:w-8 transition-all duration-200 cursor-pointer"
                 ></div>
               </div>
-              <div class="grid grid-cols-3 gap-1">
-                <div class="col-span-1 text-center">
-                  <p
-                    class="font-epilogue font-normal text-[29px] text-black w-full"
-                  >
+              <div class="grid grid-cols-3 w-full">
+                <div class="col-span-1 text-left">
+                  <p class="font-epilogue font-normal text-[29px] text-black">
                     Monthly Extra Payment
                   </p>
                 </div>
@@ -123,7 +146,7 @@
                 </div>
                 <div class="col-span-1 text-right">
                   <p class="font-epilogue font-bold text-[29px] text-black">
-                    1653.41
+                    {{ useCalculationsStore().fianceProperty.extraPayments }}
                   </p>
                 </div>
               </div>
@@ -357,7 +380,7 @@
                   <p
                     class="font-sans font-extrabold text-[22px] text-black px-10"
                   >
-                    1,226.01
+                    {{ props.totalValue }}
                   </p>
                 </div>
               </div>
@@ -401,8 +424,16 @@
   </div>
 </template>
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useCalculationsStore } from "../store/calculations";
+const pieData = ref();
+const pieOptions = ref();
+
+const chartData = ref();
+const chartOptions = ref();
+
+const graphData = ref();
+const graphOptions = ref();
 
 const props = defineProps({
   totalValue: Number,
@@ -419,14 +450,6 @@ onMounted(() => {
   graphOptions.value = setGraphOptions();
 });
 
-const pieData = ref();
-const pieOptions = ref(null);
-
-const chartData = ref();
-const chartOptions = ref();
-
-const graphData = ref();
-const graphOptions = ref();
 
 const setChartData = () => {
   const documentStyle = getComputedStyle(document.documentElement);
@@ -604,18 +627,55 @@ const setGraphOptions = () => {
   };
 };
 
+const monthlyInterestRate = ref();
+
+monthlyInterestRate.value = useCalculationsStore().fianceProperty.monthlyInterestRate
+
+const setPieMap = ref([
+  {
+    label: "Principal & Interest",
+    // values: 2654,
+    values: useCalculationsStore().fianceProperty.monthlyInterestRate,
+  },
+  {
+    label: "Extra Payments",
+    // values: 200,
+    values: useCalculationsStore().fianceProperty.extraPayments,
+  },
+  {
+    label: "Home Insurance",
+    // values: 400,
+    values: useCalculationsStore().fianceProperty.homeInsuranceMonthly,
+  },
+  {
+    label: "Property Tax",
+    // values: 400,
+    values: useCalculationsStore().fianceProperty.propertyTaxMonthly,
+  },
+  {
+    label: "HOA Fees",
+    // values: 200,
+    values: useCalculationsStore().fianceProperty.hoaFees
+  },
+  {
+    label: "PMI",
+    // values: 300,
+    values: useCalculationsStore().fianceProperty.pmiMonthly
+  },
+]);
+
 const setPieData = () => {
   const documentStyle = getComputedStyle(document.body);
 
   return {
-    // labels: ["A", "B", "C"],
+    labels: setPieMap.value.map((x) => x.label),
     datasets: [
       {
-        data: [1653, 0, 102, 365, 0, 160],
+        data: setPieMap.value.map((x) => x.values),
         backgroundColor: [
           documentStyle.getPropertyValue("--surface-900"),
-          documentStyle.getPropertyValue("--blue-400"),
-          documentStyle.getPropertyValue("--green-300"),
+          documentStyle.getPropertyValue("--blue-500"),
+          documentStyle.getPropertyValue("--green-500"),
           documentStyle.getPropertyValue("--pink-600"),
           documentStyle.getPropertyValue("--yellow-500"),
           documentStyle.getPropertyValue("--indigo-600"),
@@ -624,11 +684,21 @@ const setPieData = () => {
         hoverBackgroundColor: [
           documentStyle.getPropertyValue("--surface-700"),
           documentStyle.getPropertyValue("--blue-200"),
-          documentStyle.getPropertyValue("--green-100"),
+          documentStyle.getPropertyValue("--green-300"),
           documentStyle.getPropertyValue("--pink-400"),
           documentStyle.getPropertyValue("--yellow-300"),
           documentStyle.getPropertyValue("--indigo-400"),
         ],
+        hoverBorderColor: [
+          documentStyle.getPropertyValue("--surface-500"),
+          documentStyle.getPropertyValue("--blue-100"),
+          documentStyle.getPropertyValue("--green-100"),
+          documentStyle.getPropertyValue("--pink-200"),
+          documentStyle.getPropertyValue("--yellow-100"),
+          documentStyle.getPropertyValue("--indigo-200"),
+        ],
+        hoverBorderWidth: 10,
+        hoverOffset: 20,
       },
     ],
   };
@@ -640,6 +710,7 @@ const setPieOptions = () => {
 
   return {
     plugins: {
+      responsive: true,
       legend: {
         labels: {
           cutout: "60%",
@@ -649,5 +720,30 @@ const setPieOptions = () => {
     },
   };
 };
+
+const plugins = [{
+      beforeDraw(chart) {
+        const width = chart.width;
+        const height = chart.height;
+        const ctx = chart.ctx;
+
+        ctx.restore();
+        const fontSize = (height / 350).toFixed(2);
+        ctx.font = fontSize + "em sans-serif";
+        ctx.textBaseline = "middle";
+
+        const text = `$${useCalculationsStore().getCalculations}`;
+        const text2 = `Montly Payment`;
+        const textX1 = Math.round((width - ctx.measureText(text).width) / 2);
+        const textX2 = Math.round((width - ctx.measureText(text2).width) / 1.55);
+        const textY = height / 2;
+
+        ctx.font = "bold " + ctx.font;
+        ctx.fillText(text, textX1-5, textY+15);
+        ctx.font = fontSize + "em sans-serif";
+        ctx.fillText(text2, textX2-60, textY+48);
+        ctx.save();
+      }
+    }];
 </script>
 <style scoped></style>
