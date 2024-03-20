@@ -393,14 +393,58 @@
           Total Of All Payments
         </h1>
         <div class="bg-slate-300 mx-8 h-0.5 w-full"></div>
-        <div flex>
-          <div class="card">
+        <div class="flex w-full">
+          <div class="justify-start mx-6 space-y-[50px] mt-8">
+            <p class="text-2xl">Down Payment & One-time Expenses</p>
+            <p class="text-2xl">Principal</p>
+            <p class="text-2xl">Interest</p>
+            <p class="text-2xl">Extra Payments</p>
+            <p class="text-2xl">Home insurance</p>
+            <p class="text-2xl">Property taxes</p>
+            <p class="text-2xl">HOA fees</p>
+            <p class="text-2xl">PMI (until February 21, 2031)</p>
+          </div>
+          <div class="w-[50%]">
             <Chart
               type="bar"
               :data="chartData"
               :options="chartOptions"
-              class="h-96"
+              class="h-[645px] my-10 justify-center flex mx-28"
             />
+          </div>
+          <div class="w-[20%] space-y-[4px] mt-8">
+            <div class="grid grid-cols-2">
+              <p class="text-2xl font-extrabold">$</p>
+              <p class="text-2xl hover:font-extrabold text-right">52,500</p>
+            </div>
+            <div class="grid grid-cols-2">
+                <p class="text-2xl text-left font-extrabold">$</p>
+                <p class="text-2xl text-right hover:font-extrabold">308,000</p>
+            </div>
+            <div class="grid grid-cols-2">
+                <p class="text-2xl font-extrabold">$</p>
+                <p class="text-2xl text-right hover:font-extrabold">287,227.82</p>
+            </div>
+            <div class="grid grid-cols-2">
+                <p class="text-2xl font-extrabold">$</p>
+                <p class="text-2xl text-right hover:font-extrabold">0</p>
+            </div>
+            <div class="grid grid-cols-2">
+                <p class="text-2xl font-extrabold">$</p>
+                <p class="text-2xl text-right hover:font-extrabold">36,750</p>
+            </div>
+            <div class="grid grid-cols-2">
+                <p class="text-2xl font-extrabold">$</p>
+                <p class="text-2xl text-right hover:font-extrabold">131,248.8</p>
+            </div>
+            <div class="grid grid-cols-2">
+                <p class="text-2xl font-extrabold">$</p>
+                <p class="text-2xl text-right hover:font-extrabold">28,800</p>
+            </div>
+            <div class="grid grid-cols-2">
+                <p class="text-2xl font-extrabold">$</p>
+                <p class="text-2xl text-right hover:font-extrabold">12,825.04</p>
+            </div>
           </div>
         </div>
         <h1
@@ -450,7 +494,6 @@ onMounted(() => {
   graphOptions.value = setGraphOptions();
 });
 
-
 const setChartData = () => {
   const documentStyle = getComputedStyle(document.documentElement);
 
@@ -467,17 +510,41 @@ const setChartData = () => {
     ],
     datasets: [
       {
-        label: "My First dataset",
-        backgroundColor: documentStyle.getPropertyValue("--cyan-500"),
-        borderColor: documentStyle.getPropertyValue("--cyan-500"),
-        data: [1500, 8800, 8206.51, 0, 1050, 3751.2, 0, 366.43],
+        label: "Down Payment & One-time Expenses",
+        backgroundColor: [
+          "#A4B0BE",
+          "#0F182D",
+          "#FF7F50",
+          "#70A1FF",
+          "#7BED9F",
+          "#FF6B81",
+          "#ECCC68",
+          "#5352ED",
+        ],
+        hoverBorderColor: [
+          "#b4bfca",
+          "#335299",
+          "#ffc7b3",
+          "#b3cdff",
+          "#bcf6ce",
+          "#ffb3be",
+          "#f7e8bb",
+          "#babaf8",
+        ],
+        hoverBorderWidth: 3,
+        barThickness: 50,
+        order: 8,
+        hoverOffset: 20,
+        // data: setPieMap.value.map((x) => x.values),
+        data: [1500, 8800, 8206.51, 600, 1050, 3751.2, 800, 366.43],
       },
       // {
-      //     label: 'My Second dataset',
-      //     backgroundColor: documentStyle.getPropertyValue('--gray-500'),
-      //     borderColor: documentStyle.getPropertyValue('--gray-500'),
-      //     data: [28, 48, 40, 19, 86, 27, 90]
-      // }
+      //   label: "Principal",
+      //   backgroundColor: documentStyle.getPropertyValue("--gray-500"),
+      //   borderColor: documentStyle.getPropertyValue("--gray-500"),
+      //   barThickness: 50,
+      //   data: [8800],
+      // },
     ],
   };
 };
@@ -495,32 +562,36 @@ const setChartOptions = () => {
     aspectRatio: 0.8,
     plugins: {
       legend: {
-        labels: {
-          color: textColor,
-        },
+        display: false,
       },
     },
     scales: {
       x: {
-        ticks: {
-          color: textColorSecondary,
-          font: {
-            weight: 500,
-          },
-        },
-        grid: {
-          display: true,
-          drawBorder: false,
-        },
+        // ticks: {
+        //   color: textColorSecondary,
+        //   font: {
+        //     weight: 500,
+        //   },
+        // },
+        // grid: {
+        //   display: false,
+        //   drawBorder: false,
+        // },
+        display: false,
       },
       y: {
+        beginAtZero: true,
         ticks: {
-          color: textColorSecondary,
+          color: "#000",
+          fontSize: 80,
+          display: false,
         },
         grid: {
           color: surfaceBorder,
-          drawBorder: false,
+          display: false,
+          drawBorder: true,
         },
+        display: false,
       },
     },
   };
@@ -576,6 +647,7 @@ const setGraphData = () => {
     ],
   };
 };
+
 const setGraphOptions = () => {
   const documentStyle = getComputedStyle(document.documentElement);
   const textColor = documentStyle.getPropertyValue("--text-color");
@@ -629,7 +701,8 @@ const setGraphOptions = () => {
 
 const monthlyInterestRate = ref();
 
-monthlyInterestRate.value = useCalculationsStore().fianceProperty.monthlyInterestRate
+monthlyInterestRate.value =
+  useCalculationsStore().fianceProperty.monthlyInterestRate;
 
 const setPieMap = ref([
   {
@@ -655,12 +728,12 @@ const setPieMap = ref([
   {
     label: "HOA Fees",
     // values: 200,
-    values: useCalculationsStore().fianceProperty.hoaFees
+    values: useCalculationsStore().fianceProperty.hoaFees,
   },
   {
     label: "PMI",
     // values: 300,
-    values: useCalculationsStore().fianceProperty.pmiMonthly
+    values: useCalculationsStore().fianceProperty.pmiMonthly,
   },
 ]);
 
@@ -721,29 +794,35 @@ const setPieOptions = () => {
   };
 };
 
-const plugins = [{
-      beforeDraw(chart) {
-        const width = chart.width;
-        const height = chart.height;
-        const ctx = chart.ctx;
+const plugins = [
+  {
+    beforeDraw(chart) {
+      const width = chart.width;
+      const height = chart.height;
+      const ctx = chart.ctx;
 
-        ctx.restore();
-        const fontSize = (height / 350).toFixed(2);
-        ctx.font = fontSize + "em sans-serif";
-        ctx.textBaseline = "middle";
+      ctx.restore();
+      const fontSize = (height / 350).toFixed(2);
+      ctx.font = fontSize + "em sans-serif";
+      ctx.textBaseline = "middle";
 
-        const text = `$${useCalculationsStore().getCalculations}`;
-        const text2 = `Montly Payment`;
-        const textX1 = Math.round((width - ctx.measureText(text).width) / 2);
-        const textX2 = Math.round((width - ctx.measureText(text2).width) / 1.55);
-        const textY = height / 2;
+      const text = `$${useCalculationsStore().getCalculations}`;
+      const text2 = `Montly Payment`;
+      const textX1 = Math.round((width - ctx.measureText(text).width) / 2);
+      const textX2 = Math.round((width - ctx.measureText(text2).width) / 1.55);
+      const textY = height / 2;
 
-        ctx.font = "bold " + ctx.font;
-        ctx.fillText(text, textX1-5, textY+15);
-        ctx.font = fontSize + "em sans-serif";
-        ctx.fillText(text2, textX2-60, textY+48);
-        ctx.save();
-      }
-    }];
+      ctx.font = "bold " + ctx.font;
+      ctx.fillText(text, textX1 - 5, textY + 15);
+      ctx.font = fontSize + "em sans-serif";
+      ctx.fillText(text2, textX2 - 60, textY + 48);
+      ctx.save();
+    },
+  },
+];
 </script>
-<style scoped></style>
+<style scoped>
+.chartjs-size {
+  font-size: 30px; /* Change this value to adjust the font size */
+}
+</style>

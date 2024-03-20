@@ -6,7 +6,12 @@ export default {
       cinzel: ["Cinzel", "serif"],
       epilogue: ["Epilogue", "serif"],
     },
-    extend: {},
+    extend: {
+      animation: {
+        openmenu: "openmenu 15s ease-in duration-300",
+        closemenu: "closemenu 15s ease-out duration-300",
+      },
+    },
   },
   plugins: [],
 };

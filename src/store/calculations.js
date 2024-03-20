@@ -37,48 +37,40 @@ export const useCalculationsStore = defineStore({
   },
   actions: {
     calculateDownPercentage() {
-      this.downValue = false;
       if (!this.downValue) {
         this.fianceProperty.downPayment =
           this.fianceProperty.homeValue / this.fianceProperty.downPayment;
-      }
-    },
-    calculateDownRaqam() {
-      this.downValue = true;
-      if (this.downValue) {
+      } else {
         this.fianceProperty.downPayment =
           (this.fianceProperty.downPayment / 1000) *
           this.fianceProperty.homeValue;
       }
+      return this.fianceProperty.downPayment;
     },
+
     loanLengthYear() {
-      this.loanLengthValue = false;
       if (!this.loanLengthValue) {
         this.fianceProperty.loanLength = this.fianceProperty.loanLength / 12;
+      } else {
+        this.fianceProperty.loanLength = this.fianceProperty.loanLength * 12;
       }
     },
     loanLengthMonth() {
       this.loanLengthValue = true;
-      if (this.loanLengthValue) {
-        this.fianceProperty.loanLength = this.fianceProperty.loanLength * 12;
-      }
     },
+
     oneTimePercentage() {
-      this.oneTimeExpensesValue = false;
       if (!this.oneTimeExpensesValue) {
         this.fianceProperty.oneTimeExpenses =
           (this.fianceProperty.oneTimeExpenses / 100) *
           this.fianceProperty.homeValue;
-      }
-    },
-    oneTimeAmount() {
-      this.oneTimeExpensesValue = true;
-      if (this.oneTimeExpensesValue) {
+      } else {
         this.fianceProperty.oneTimeExpenses =
           (this.fianceProperty.oneTimeExpenses / 1000) *
           this.fianceProperty.homeValue;
       }
     },
+
     paymentFrequencyType() {
       if (!this.paymentFrequencyValue) {
         this.fianceProperty.paymentFrequency = "Monthly";
@@ -87,52 +79,41 @@ export const useCalculationsStore = defineStore({
       }
       return this.fianceProperty.paymentFrequency;
     },
+
     homeInsurancePercentage() {
-      this.homeInsuranceValue = false;
       if (!this.homeInsuranceValue) {
         this.fianceProperty.homeInsurance =
           (this.fianceProperty.homeInsurance / 100) *
           this.fianceProperty.homeValue;
-      }
-    },
-    homeInsuranceAmount() {
-      this.homeInsuranceValue = true;
-      if (this.homeInsuranceValue) {
+      } else {
         this.fianceProperty.homeInsurance =
           (this.fianceProperty.homeInsurance / 1000) *
           this.fianceProperty.homeValue;
       }
     },
+
     propertyTaxPercentage() {
-      this.propertyTaxValue = false;
       if (!this.propertyTaxValue) {
         this.fianceProperty.propertyTax =
           (this.fianceProperty.propertyTax / 100) *
           this.fianceProperty.homeValue;
-      }
-    },
-    propertyTaxAmount() {
-      this.propertyTaxValue = true;
-      if (this.propertyTaxValue) {
+      } else {
         this.fianceProperty.propertyTax =
           (this.fianceProperty.propertyTax / 1000) *
           this.fianceProperty.homeValue;
       }
     },
+
     pmiPercentage() {
-      this.pmiValue = false;
       if (!this.pmiValue) {
         this.fianceProperty.pmi =
           (this.fianceProperty.pmi / 100) * this.fianceProperty.homeValue;
-      }
-    },
-    pmiAmount() {
-      this.pmiValue = true;
-      if (this.pmiValue) {
+      } else {
         this.fianceProperty.pmi =
           (this.fianceProperty.pmi / 1000) * this.fianceProperty.homeValue;
       }
     },
+
     mortgageCalculation() {
       let principal;
       principal =
@@ -147,7 +128,9 @@ export const useCalculationsStore = defineStore({
       // Convert annual interest rate to monthly and percentage to decimal
       let monthlyInterestRate = this.fianceProperty.interestRate / 100 / 12;
 
-      this.fianceProperty.monthlyInterestRate = (principal / 10/ 12).toFixed(0);
+      this.fianceProperty.monthlyInterestRate = (principal / 10 / 12).toFixed(
+        0
+      );
 
       // Convert loan length from years to months
       let loanLengthMonths = this.fianceProperty.loanLength * 12;
@@ -165,24 +148,29 @@ export const useCalculationsStore = defineStore({
           (this.fianceProperty.homeInsurance / 100)) /
         12;
 
-        this.fianceProperty.homeInsuranceMonthly = ((this.fianceProperty.homeValue *
+      this.fianceProperty.homeInsuranceMonthly = (
+        (this.fianceProperty.homeValue *
           (this.fianceProperty.homeInsurance / 100)) /
-        12).toFixed(0);
-        
+        12
+      ).toFixed(0);
+
       let propertyTaxMonthly =
         (this.fianceProperty.homeValue *
           (this.fianceProperty.propertyTax / 100)) /
         12;
 
-        this.fianceProperty.propertyTaxMonthly = ((this.fianceProperty.homeValue *
+      this.fianceProperty.propertyTaxMonthly = (
+        (this.fianceProperty.homeValue *
           (this.fianceProperty.propertyTax / 100)) /
-        12).toFixed(0);
+        12
+      ).toFixed(0);
 
-        let pmiMonthly = ((principal * (this.fianceProperty.pmi / 100)) / 12)
+      let pmiMonthly = (principal * (this.fianceProperty.pmi / 100)) / 12;
 
-        this.fianceProperty.pmiMonthly =
-        ((principal * (this.fianceProperty.pmi / 100)) / 12).toFixed(0);
-        
+      this.fianceProperty.pmiMonthly = (
+        (principal * (this.fianceProperty.pmi / 100)) /
+        12
+      ).toFixed(0);
 
       // Calculate total monthly payment including additional costs
       let totalMonthlyPayment =
