@@ -463,7 +463,7 @@
 <script setup>
 import { onBeforeMount, onMounted, ref } from "vue";
 import { useCalculationsStore } from "../store/calculations";
-import MainPage from "../components/MainPage.vue";
+import MainPage from "../pages/MainPage.vue";
 
 const mortgagePayment = ref(0);
 const extraFields = ref(false);

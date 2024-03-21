@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import SideBar from "./components/SideBar.vue";
+import SideBar from "./pages/SideBar.vue";
 </script>
 
-<style scoped></style>./components/SideBar.vue
+<style scoped></style>

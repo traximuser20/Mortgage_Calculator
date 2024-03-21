@@ -393,7 +393,7 @@
           Total Of All Payments
         </h1>
         <div class="bg-slate-300 mx-8 h-0.5 w-full"></div>
-        <div class="flex w-full">
+        <div class="flex w-full group">
           <div class="justify-start mx-6 space-y-[50px] mt-8">
             <p class="text-2xl">Down Payment & One-time Expenses</p>
             <p class="text-2xl">Principal</p>
@@ -402,14 +402,28 @@
             <p class="text-2xl">Home insurance</p>
             <p class="text-2xl">Property taxes</p>
             <p class="text-2xl">HOA fees</p>
-            <p class="text-2xl">PMI (until February 21, 2031)</p>
+            <div class="text-2xl">
+              PMI
+              <div class="tooltip">
+                <span
+                  ref="tooltip"
+                  @mouseover="showTooltip"
+                  @mouseleave="hideTooltip"
+                  >{{ text }}</span
+                >
+                <div v-if="isTooltipVisible" class="tooltiptext">
+                  {{ tooltipText }}
+                  <span class="arrow"></span>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="w-[50%]">
             <Chart
               type="bar"
               :data="chartData"
               :options="chartOptions"
-              class="h-[645px] my-10 justify-center flex mx-28"
+              class="h-[645px] my-10 justify-center flex mx-18"
             />
           </div>
           <div class="w-[20%] space-y-[4px] mt-8">
@@ -418,32 +432,32 @@
               <p class="text-2xl hover:font-extrabold text-right">52,500</p>
             </div>
             <div class="grid grid-cols-2">
-                <p class="text-2xl text-left font-extrabold">$</p>
-                <p class="text-2xl text-right hover:font-extrabold">308,000</p>
+              <p class="text-2xl text-left font-extrabold">$</p>
+              <p class="text-2xl text-right hover:font-extrabold">308,000</p>
             </div>
             <div class="grid grid-cols-2">
-                <p class="text-2xl font-extrabold">$</p>
-                <p class="text-2xl text-right hover:font-extrabold">287,227.82</p>
+              <p class="text-2xl font-extrabold">$</p>
+              <p class="text-2xl text-right hover:font-extrabold">287,227.82</p>
             </div>
             <div class="grid grid-cols-2">
-                <p class="text-2xl font-extrabold">$</p>
-                <p class="text-2xl text-right hover:font-extrabold">0</p>
+              <p class="text-2xl font-extrabold">$</p>
+              <p class="text-2xl text-right hover:font-extrabold">0</p>
             </div>
             <div class="grid grid-cols-2">
-                <p class="text-2xl font-extrabold">$</p>
-                <p class="text-2xl text-right hover:font-extrabold">36,750</p>
+              <p class="text-2xl font-extrabold">$</p>
+              <p class="text-2xl text-right hover:font-extrabold">36,750</p>
             </div>
             <div class="grid grid-cols-2">
-                <p class="text-2xl font-extrabold">$</p>
-                <p class="text-2xl text-right hover:font-extrabold">131,248.8</p>
+              <p class="text-2xl font-extrabold">$</p>
+              <p class="text-2xl text-right hover:font-extrabold">131,248.8</p>
             </div>
             <div class="grid grid-cols-2">
-                <p class="text-2xl font-extrabold">$</p>
-                <p class="text-2xl text-right hover:font-extrabold">28,800</p>
+              <p class="text-2xl font-extrabold">$</p>
+              <p class="text-2xl text-right hover:font-extrabold">28,800</p>
             </div>
             <div class="grid grid-cols-2">
-                <p class="text-2xl font-extrabold">$</p>
-                <p class="text-2xl text-right hover:font-extrabold">12,825.04</p>
+              <p class="text-2xl font-extrabold">$</p>
+              <p class="text-2xl text-right hover:font-extrabold">12,825.04</p>
             </div>
           </div>
         </div>
@@ -459,8 +473,145 @@
               type="line"
               :data="graphData"
               :options="graphOptions"
+              @mousemove="handleMouseMove"
+              @mouseleave="handleMouseLeave"
               class="h-96 w-full"
             />
+          </div>
+        </div>
+        <div class="my-8">
+          <div class="grid grid-cols-3">
+            <div class="col-span-1">
+              <label class="text-3xl font-epilogue font-normal uppercase">
+                Mortgage Payoff Date:
+              </label>
+            </div>
+            <div class="col-span-2">
+              <label class="text-3xl font-epilogue font-normal uppercase">
+                Payment breakdown as of 2027
+              </label>
+            </div>
+          </div>
+
+          <div class="bg-slate-300 h-0.5 w-full my-6"></div>
+
+          <div class="grid grid-cols-3">
+            <div class="col-span-1">
+              <div class="grid grid-rows-3">
+                <div class="row-span-1">
+                  <label
+                    class="text-3xl font-epilogue font-extralight uppercase"
+                  >
+                    February 21
+                  </label>
+                </div>
+                <div class="row-span-2">
+                  <label class="text-8xl font-serif font-normal uppercase">
+                    2054
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-span-2">
+              <div class="grid grid-rows-3">
+                <div class="row-span-1">
+                  <div class="flex items-center justify-center -my-5 pl-4">
+                    <div class="w-10">
+                      <div
+                        class="h-6 w-6 bg-[#3FA9F5] mr-3 hover:h-8 hover:w-8 transition-all duration-200 cursor-pointer"
+                      ></div>
+                    </div>
+                    <div class="grid grid-cols-3 w-full">
+                      <div class="col-span-1 text-left">
+                        <p
+                          class="font-epilogue font-normal text-[29px] text-black"
+                        >
+                        Remaining Balance
+                        </p>
+                      </div>
+                      <div class="col-span-1 text-right">
+                        <p
+                          class="font-epilogue font-normal text-[29px] text-black"
+                        >
+                          $
+                        </p>
+                      </div>
+                      <div class="col-span-1 text-right">
+                        <p
+                          class="font-epilogue font-normal text-[29px] text-black"
+                        >
+                          22,440.18
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row-span-1">
+                  <div class="flex items-center justify-center pl-4 -my-5">
+                    <div class="w-10">
+                      <div
+                        class="h-6 w-6 bg-[#0F182D] mr-3 hover:h-8 hover:w-8 transition-all duration-200 cursor-pointer"
+                      ></div>
+                    </div>
+                    <div class="grid grid-cols-3 w-full">
+                      <div class="col-span-1 text-left">
+                        <p
+                          class="font-epilogue font-normal text-[29px] text-black"
+                        >
+                        Principal
+                        </p>
+                      </div>
+                      <div class="col-span-1 text-right">
+                        <p
+                          class="font-epilogue font-normal text-[29px] text-black"
+                        >
+                          $
+                        </p>
+                      </div>
+                      <div class="col-span-1 text-right">
+                        <p
+                          class="font-epilogue font-normal text-[29px] text-black"
+                        >
+                          18,221.64
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row-span-1">
+                  <div class="flex items-center justify-center pl-4 -my-5">
+                    <div class="w-10">
+                      <div
+                        class="h-6 w-6 bg-[#FF7F50] mr-3 hover:h-8 hover:w-8 transition-all duration-200 cursor-pointer"
+                      ></div>
+                    </div>
+                    <div class="grid grid-cols-3 w-full">
+                      <div class="col-span-1 text-left">
+                        <p
+                          class="font-epilogue font-normal text-[29px] text-black"
+                        >
+                        Interest
+                        </p>
+                      </div>
+                      <div class="col-span-1 text-right">
+                        <p
+                          class="font-epilogue font-normal text-[29px] text-black"
+                        >
+                          $
+                        </p>
+                      </div>
+                      <div class="col-span-1 text-right">
+                        <p
+                          class="font-epilogue font-normal text-[29px] text-black"
+                        >
+                          1,619.28
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -470,6 +621,21 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import { useCalculationsStore } from "../store/calculations";
+
+const tooltipText = ref(
+  "Each year, your PMI is recalculated using your current loan balance, so the amount you pay decreases as you pay down the loan. The Homeowners Protection Act of 1998 requires that lenders remove private mortgage insurance when a borrower reaches a 78 percent loan-to-value ratio."
+);
+const text = ref("(until February 21, 2031)");
+const isTooltipVisible = ref(false);
+
+const showTooltip = () => {
+  isTooltipVisible.value = true;
+};
+
+const hideTooltip = () => {
+  isTooltipVisible.value = false;
+};
+
 const pieData = ref();
 const pieOptions = ref();
 
@@ -624,8 +790,12 @@ const setGraphData = () => {
         data: [65, 59, 80, 81, 56, 55, 40],
         fill: true,
         tension: 0.4,
+        showLine: true,
+        borderWidth: 2,
+        pointRadius: 5,
+        pointHoverRadius: 8,
         borderColor: documentStyle.getPropertyValue("--cyan-500"),
-        backgroundColor: "rgba(99, 102, 241, 0.2)",
+        backgroundColor: "rgba(88, 89, 91, 0.61)",
       },
       {
         label: "Second Dataset",
@@ -633,19 +803,85 @@ const setGraphData = () => {
         fill: true,
         borderDash: [5, 5],
         tension: 0.4,
+        borderWidth: 2,
+        pointRadius: 5,
+        pointHoverRadius: 8,
         borderColor: documentStyle.getPropertyValue("--orange-500"),
-        backgroundColor: "rgba(255, 159, 64, 0.2)",
+        backgroundColor: "rgba(96, 159, 243, 0.45)",
       },
       {
         label: "Third Dataset",
         data: [12, 51, 62, 33, 21, 62, 45],
+        showLine: true,
         fill: true,
+        borderWidth: 2,
+        pointRadius: 5,
+        pointHoverRadius: 8,
         borderColor: documentStyle.getPropertyValue("--gray-500"),
         tension: 0.4,
-        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        backgroundColor: "rgba(212, 190, 192, 0.65)",
       },
     ],
   };
+};
+
+let hoverX = null;
+let hoverY = null;
+
+const handleMouseMove = (event) => {
+  const chart = chartRef.value.chart;
+  const canvas = chart.canvas;
+  const rect = canvas.getBoundingClientRect();
+  const offsetX = event.clientX - rect.left;
+  const offsetY = event.clientY - rect.top;
+
+  const activePoint = chart.getElementsAtXAxis(event)[0];
+  if (activePoint) {
+    const dataset = activePoint.dataset;
+    const index = activePoint.index;
+    const xValue = chart.data.labels[index];
+    const yValue = dataset.data[index];
+
+    hoverX = offsetX;
+    hoverY = offsetY;
+    drawLine(xValue, yValue);
+  } else {
+    hoverX = null;
+    hoverY = null;
+    drawLine();
+  }
+};
+
+const handleMouseLeave = () => {
+  hoverX = null;
+  hoverY = null;
+  drawLine();
+};
+
+const drawLine = (xValue = null, yValue = null) => {
+  const chart = chartRef.value.chart;
+  const ctx = chart.ctx;
+
+  ctx.save();
+  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+  if (xValue !== null && yValue !== null) {
+    ctx.strokeStyle = "rgba(0, 0, 0, 0.5)";
+    ctx.beginPath();
+    ctx.moveTo(hoverX, 0);
+    ctx.lineTo(hoverX, ctx.canvas.height);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(0, hoverY);
+    ctx.lineTo(ctx.canvas.width, hoverY);
+    ctx.stroke();
+
+    ctx.fillStyle = "#000";
+    ctx.fillText(`X: ${xValue}`, hoverX + 5, hoverY - 5);
+    ctx.fillText(`Y: ${yValue}`, hoverX + 5, hoverY + 10);
+  }
+  ctx.restore();
 };
 
 const setGraphOptions = () => {
@@ -661,11 +897,19 @@ const setGraphOptions = () => {
     maintainAspectRatio: false,
     aspectRatio: 0.6,
     plugins: {
+      tooltip: {
+        enabled: false,
+      },
       legend: {
+        display: false,
         labels: {
           color: textColor,
         },
       },
+    },
+    interaction: {
+      intersect: false,
+      mode: "index",
     },
     scales: {
       x: {
@@ -770,7 +1014,7 @@ const setPieData = () => {
           documentStyle.getPropertyValue("--yellow-100"),
           documentStyle.getPropertyValue("--indigo-200"),
         ],
-        hoverBorderWidth: 10,
+        hoverBorderWidth: 7,
         hoverOffset: 20,
       },
     ],
@@ -822,7 +1066,46 @@ const plugins = [
 ];
 </script>
 <style scoped>
-.chartjs-size {
-  font-size: 30px; /* Change this value to adjust the font size */
+/* Style for the tooltip */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
+
+/* Style for the tooltip content */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  background-color: black;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  bottom: 170%;
+  z-index: 1;
+  width: 425px;
+  left: 50%;
+  font-size: medium;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 50s;
+}
+
+/* Show the tooltip content on hover */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip .arrow {
+  position: absolute;
+  bottom: -16px;
+  /* Adjust the position of the arrow */
+  left: 50%;
+  border-width: 8px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+  transform: translateX(-50%);
 }
 </style>
