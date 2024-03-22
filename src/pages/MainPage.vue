@@ -469,13 +469,11 @@
         <div class="bg-slate-300 h-0.5 w-full"></div>
         <div>
           <div class="card my-8">
-            <Chart
-              type="line"
-              :data="graphData"
-              :options="graphOptions"
-              @mousemove="handleMouseMove"
-              @mouseleave="handleMouseLeave"
-              class="h-96 w-full"
+            <apexchart
+              :options="apexChartOptions"
+              :series="series"
+              type="area"
+              height="350"
             />
           </div>
         </div>
@@ -526,7 +524,7 @@
                         <p
                           class="font-epilogue font-normal text-[29px] text-black"
                         >
-                        Remaining Balance
+                          Remaining Balance
                         </p>
                       </div>
                       <div class="col-span-1 text-right">
@@ -558,7 +556,7 @@
                         <p
                           class="font-epilogue font-normal text-[29px] text-black"
                         >
-                        Principal
+                          Principal
                         </p>
                       </div>
                       <div class="col-span-1 text-right">
@@ -590,7 +588,7 @@
                         <p
                           class="font-epilogue font-normal text-[29px] text-black"
                         >
-                        Interest
+                          Interest
                         </p>
                       </div>
                       <div class="col-span-1 text-right">
@@ -621,6 +619,7 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import { useCalculationsStore } from "../store/calculations";
+import VueApexCharts from "vue3-apexcharts";
 
 const tooltipText = ref(
   "Each year, your PMI is recalculated using your current loan balance, so the amount you pay decreases as you pay down the loan. The Homeowners Protection Act of 1998 requires that lenders remove private mortgage insurance when a borrower reaches a 78 percent loan-to-value ratio."
@@ -635,6 +634,132 @@ const showTooltip = () => {
 const hideTooltip = () => {
   isTooltipVisible.value = false;
 };
+
+const series = ref([
+  {
+    name: "Series 1",
+    data: [
+      "304229.06",
+      "299492.01",
+      "294512.6",
+      "289278.43",
+      "283776.47",
+      "277993.03",
+      "271913.69",
+      "265523.32",
+      "258806.01",
+      "251745.02",
+      "244322.79",
+      "236613.92",
+      "228583.84",
+      "220249.62",
+      "211605.15",
+      "202648.35",
+      "193393.29",
+      "184015.11",
+      "164511.86",
+      "154936.57",
+      "145274.21",
+      "135523.82",
+      "105310.23",
+      "90000.64",
+      "74456.64",
+      "59145.60",
+      "36556.56",
+      "16845.00",
+      "2713.44",
+      "0.00",
+    ],
+  },
+  {
+    name: "Series 2",
+    data: [
+      "3770.94",
+      "4737.05",
+      "4979.41",
+      "5234.14",
+      "5501.96",
+      "5783.45",
+      "6079.35",
+      "6390.37",
+      "6717.31",
+      "7060.98",
+      "7422.23",
+      "7801.69",
+      "8199.32",
+      "8614.17",
+      "9042.24",
+      "9483.64",
+      "10037.94",
+      "10605.14",
+      "11185.24",
+      "11779.24",
+      "12386.24",
+      "13007.24",
+      "13642.24",
+      "14289.24",
+      "15622.24",
+      "16307.24",
+      "17334.78",
+      "18221.64",
+      "19153.91",
+      "3286.27"
+
+    ],
+  },
+  {
+    name: "Series 3",
+    data: [
+      "12763.16",
+      "15103.88",
+      "14861.51",
+      "14606.79",
+      "14338.96",
+      "14057.47",
+      "13761.58",
+      "13,450.57",
+      "13,123.61",
+      "12,779.94",
+      "12,424.85",
+      "12,058.26",
+      "11,681.16",
+    ],
+  },
+]);
+
+const apexChartOptions = ref({
+  chart: {
+    type: "area",
+  },
+  xaxis: {
+    categories: [
+      "2024",
+      "2026",
+      "2028",
+      "2030",
+      "2032",
+      "2034",
+      "2036",
+      "2038",
+      "2040",
+      "2044",
+      "2046",
+      "2048",
+      "2050",
+      "2052",
+      "2054",
+    ],
+  },
+  yaxis: {
+    categories: ["400000", "320000", "240000", "160000", "80000", "0"],
+  },
+  y1axis: {
+    categories: ["400000", "320000", "240000", "160000", "80000", "0"],
+  },
+  stroke: {
+    curve: "smooth",
+  },
+});
 
 const pieData = ref();
 const pieOptions = ref();

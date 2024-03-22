@@ -244,7 +244,7 @@
       </template>
 
       <template v-if="extraFields">
-        <div class="items-center animate-openmenu">
+        <div class="items-center">
           <p
             class="uppercase font-epilogue font-extralight text-center text-slate-800 text-2xl cursor-pointer"
           >

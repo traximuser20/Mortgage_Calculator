@@ -7,6 +7,7 @@ import Slider from 'primevue/slider';
 import Calendar from 'primevue/calendar';
 import Chart from 'primevue/chart';
 import SelectButton from 'primevue/selectbutton';
+import VueApexCharts from "vue3-apexcharts";
 
 import 'primevue/resources/themes/aura-light-noir/theme.css'
 
@@ -19,5 +20,6 @@ app.component('Slider', Slider);
 app.component('Calendar', Calendar);
 app.component('Chart', Chart);
 app.component('SelectButton', SelectButton);
+app.use(VueApexCharts);
 app.use(pinia)
 app.mount('#app')
