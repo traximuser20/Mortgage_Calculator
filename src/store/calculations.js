@@ -22,6 +22,8 @@ export const useCalculationsStore = defineStore({
       homeInsuranceMonthly: 0,
       monthlyInterestRate: 0,
     },
+    extraFields: false,
+    extraStartDate: moment().locale("en").format("YYYY-MM-DD"),
     valuesArray: [],
     downValue: false,
     disableDownPercent: false,

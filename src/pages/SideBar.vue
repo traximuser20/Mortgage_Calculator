@@ -207,10 +207,10 @@
           Bi-weekly
         </button>
       </div>
-      <template v-if="!extraFields">
+      <template v-if="!useCalculationsStore().extraFields">
         <div
           class="flex items-center justify-center"
-          @click="extraFields = true"
+          @click="useCalculationsStore().extraFields = true"
         >
           <div>
             <svg
@@ -243,7 +243,7 @@
         </div>
       </template>
 
-      <template v-if="extraFields">
+      <template v-if="useCalculationsStore().extraFields">
         <div class="items-center">
           <p
             class="uppercase font-epilogue font-extralight text-center text-slate-800 text-2xl cursor-pointer"
@@ -296,7 +296,6 @@
               <input
                 type="text"
                 class="border-1 h-10 text-xl w-72"
-                @input="useCalculationsStore().mortgageCalculation()"
               />
             </div>
           </div>
@@ -308,12 +307,11 @@
             </p>
             <div class="flex-auto">
               <input
-                v-model="useCalculationsStore().fianceProperty.startDate"
+                v-model="useCalculationsStore().extraStartDate"
                 type="date"
                 id="start_date"
                 name="start_date"
                 class="h-10 w-[340px] py-2 px-3 text-2xl"
-                @input="useCalculationsStore().mortgageCalculation()"
               />
             </div>
           </div>
@@ -338,7 +336,6 @@
               <input
                 type="text"
                 class="border-1 h-10 text-xl w-72"
-                @input="useCalculationsStore().mortgageCalculation()"
               />
             </div>
           </div>
@@ -350,12 +347,11 @@
             </p>
             <div class="flex-auto">
               <input
-                v-model="useCalculationsStore().fianceProperty.startDate"
+                v-model="useCalculationsStore().extraStartDate"
                 type="date"
                 id="start_date"
                 name="start_date"
                 class="h-10 w-[340px] py-2 px-3 text-2xl"
-                @input="useCalculationsStore().mortgageCalculation()"
               />
             </div>
           </div>
@@ -380,7 +376,6 @@
               <input
                 type="text"
                 class="border-1 h-10 text-xl w-72"
-                @input="useCalculationsStore().mortgageCalculation()"
               />
             </div>
           </div>
@@ -392,12 +387,11 @@
             </p>
             <div class="flex-auto">
               <input
-                v-model="useCalculationsStore().fianceProperty.startDate"
+                v-model="useCalculationsStore().extraStartDate"
                 type="date"
                 id="start_date"
                 name="start_date"
                 class="h-10 w-[340px] py-2 px-3 text-2xl"
-                @input="useCalculationsStore().mortgageCalculation()"
               />
             </div>
           </div>
@@ -422,7 +416,6 @@
               <input
                 type="text"
                 class="border-1 h-10 text-xl w-72"
-                @input="useCalculationsStore().mortgageCalculation()"
               />
             </div>
           </div>
@@ -434,17 +427,16 @@
             </p>
             <div class="flex-auto">
               <input
-                v-model="useCalculationsStore().fianceProperty.startDate"
+                v-model="useCalculationsStore().extraStartDate"
                 type="date"
                 id="start_date"
                 name="start_date"
                 class="h-10 w-[340px] py-2 px-3 text-2xl"
-                @input="useCalculationsStore().mortgageCalculation()"
               />
             </div>
           </div>
         </div>
-        <div class="" @click="extraFields = false">
+        <div class="" @click="useCalculationsStore().extraFields = false">
           <p
             class="font-epilogue font-extralight text-center text-slate-800 text-2xl cursor-pointer"
           >
@@ -466,7 +458,6 @@ import { useCalculationsStore } from "../store/calculations";
 import MainPage from "../pages/MainPage.vue";
 
 const mortgagePayment = ref(0);
-const extraFields = ref(false);
 useCalculationsStore().mortgageCalculation();
 
 // https://westcaprealestate.com/mortgage-calculator/  // Mortgage Calculator

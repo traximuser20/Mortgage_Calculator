@@ -154,7 +154,7 @@
             <div class="bg-slate-300 mx-8 h-0.5 w-full"></div>
             <div class="flex my-6 ml-3">
               <div class="w-56 mx-12">
-                <div class="bg-white text-xl cursor-pointer hover:underline">
+                <div class="bg-white text-xl cursor-pointer hover:underline" @click="useCalculationsStore().extraFields = true">
                   + Add Extra Payments
                 </div>
               </div>
