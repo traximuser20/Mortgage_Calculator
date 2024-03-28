@@ -1,7 +1,7 @@
 <template>
   <div class="w-[100%]">
     <div class="flex flex-row items-center mx-4 mb-12">
-      <p class="font-bold text-5xl text-black pr-4">$</p>
+      <p class="font-sans font-bold text-5xl pb-3 text-black pr-4">$</p>
       <p class="font-epilogue font-bold text-5xl text-black w-96">
         {{ props.totalValue }}
       </p>
@@ -10,571 +10,635 @@
         Your estimated Monthly payment
       </p>
     </div>
-    <h1 class="uppercase font-cinzel font-normal text-black text-5xl mb-3">
+    <h1 class="uppercase font-cinzel font-light text-black text-5xl mb-3">
       Payment Breakdown
     </h1>
     <div class="bg-slate-300 h-[1px] w-full"></div>
     <div class="">
-      <div class="grid grid-row-3 grid-flow-col">
-        <div class="col-span-1 row-span-3 gap-4">
+      <div class="grid grid-row-3 grid-flow-col gap-8">
+        <div class="row-span-3 col-span-1">
           <div class="mx-auto justify-center">
-            <div class="p-4 w-96">
-              <Chart
-                type="doughnut"
-                :data="pieData"
-                :options="pieOptions"
-                :plugins="plugins"
-              />
-            </div>
-            <div class="bg-[#F7F7F7] rounded-xl">
-              <div class="flex items-center text-center">
-                <div class="bg-[#0F172A] rounded-full h-3 w-3"></div>
-                <p class="font-normal text-sm font-serif">
-                  Principal & Interest : ${{
-                    useCalculationsStore().fianceProperty.monthlyInterestRate
-                  }}
-                </p>
+            <div class="text-center">
+              <div class="p-4 w-96">
+                <Chart
+                  type="doughnut"
+                  :data="pieData"
+                  :options="pieOptions"
+                  :plugins="plugins"
+                />
               </div>
-              <div class="flex items-center text-center">
-                <div class="bg-[#609AF8] rounded-full h-3 w-3"></div>
-                <p class="font-normal text-sm font-serif">
-                  Extra Payments : ${{
-                    useCalculationsStore().fianceProperty.extraPayments
-                  }}
-                </p>
-              </div>
-              <div class="flex items-center text-center">
-                <div class="bg-[#76DB9B] rounded-full h-3 w-3"></div>
-                <p class="font-normal text-sm font-serif">
-                  Home Insurance : ${{
-                    useCalculationsStore().fianceProperty.homeInsuranceMonthly
-                  }}
-                </p>
-              </div>
-              <div class="flex items-center text-center">
-                <div class="bg-[#C93D82] rounded-full h-3 w-3"></div>
-                <p class="font-normal text-sm font-serif">
-                  Property Taxes : ${{
-                    useCalculationsStore().fianceProperty.propertyTaxMonthly
-                  }}
-                </p>
-              </div>
-              <div class="flex items-center text-center">
-                <div class="bg-[#EAB308] rounded-full h-3 w-3"></div>
-                <p class="font-normal text-sm font-serif">
-                  HOA Fees : ${{
-                    useCalculationsStore().fianceProperty.hoaFees
-                  }}
-                </p>
-              </div>
-              <div class="flex items-center text-center">
-                <div class="bg-[#5457CD] rounded-full h-3 w-3"></div>
-                <p class="font-normal text-sm font-serif">
-                  PMI : ${{ useCalculationsStore().fianceProperty.pmiMonthly }}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-span-2 row-span-1 my-6">
-          <h1 class="uppercase font-cinzel font-normal text-black text-5xl">
-            Customize your mortgage payment
-          </h1>
-          <div class="flex items-center justify-center">
-            <div class="w-10">
-              <div
-                class="h-6 w-6 bg-[#0F172A] mr-3 hover:h-8 hover:w-8 transition-all duration-200 cursor-pointer"
-              ></div>
-            </div>
-            <div class="grid grid-cols-3 w-full">
-              <div class="col-span-1 text-left">
-                <p class="font-epilogue font-normal text-[29px] text-black">
-                  Principal & Interest
-                </p>
-              </div>
-              <div class="col-span-1 text-right">
-                <p class="font-epilogue font-bold text-[29px] text-black">$</p>
-              </div>
-              <div class="col-span-1 text-right">
-                <p class="font-epilogue font-bold text-[29px] text-black">
-                  {{
-                    useCalculationsStore().fianceProperty.monthlyInterestRate
-                  }}
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="flex items-center justify-center">
-            <div class="w-10">
-              <div
-                class="h-6 w-6 bg-[#609AF8] mr-3 hover:h-8 hover:w-8 transition-all duration-200 cursor-pointer"
-              ></div>
-            </div>
-            <div class="grid grid-cols-3 w-full">
-              <div class="col-span-1 text-left">
-                <p class="font-epilogue font-normal text-[29px] text-black">
-                  Monthly Extra Payment
-                </p>
-              </div>
-              <div class="col-span-1 text-right">
-                <p class="font-epilogue font-bold text-[29px] text-black">$</p>
-              </div>
-              <div class="col-span-1 text-right">
-                <p class="font-epilogue font-bold text-[29px] text-black">
-                  {{ useCalculationsStore().fianceProperty.extraPayments }}
-                </p>
+              <div class="bg-[#F7F7F7] rounded-xl">
+                <div class="flex items-center text-center">
+                  <div class="bg-[#0F172A] rounded-full h-3 w-3"></div>
+                  <p class="font-normal text-sm font-serif">
+                    Principal & Interest : ${{
+                      useCalculationsStore().fianceProperty.monthlyInterestRate
+                    }}
+                  </p>
+                </div>
+                <div class="flex items-center text-center">
+                  <div class="bg-[#609AF8] rounded-full h-3 w-3"></div>
+                  <p class="font-normal text-sm font-serif">
+                    Extra Payments : ${{
+                      useCalculationsStore().fianceProperty.extraPayments
+                    }}
+                  </p>
+                </div>
+                <div class="flex items-center text-center">
+                  <div class="bg-[#76DB9B] rounded-full h-3 w-3"></div>
+                  <p class="font-normal text-sm font-serif">
+                    Home Insurance : ${{
+                      useCalculationsStore().fianceProperty.homeInsuranceMonthly
+                    }}
+                  </p>
+                </div>
+                <div class="flex items-center text-center">
+                  <div class="bg-[#C93D82] rounded-full h-3 w-3"></div>
+                  <p class="font-normal text-sm font-serif">
+                    Property Taxes : ${{
+                      useCalculationsStore().fianceProperty.propertyTaxMonthly
+                    }}
+                  </p>
+                </div>
+                <div class="flex items-center text-center">
+                  <div class="bg-[#EAB308] rounded-full h-3 w-3"></div>
+                  <p class="font-normal text-sm font-serif">
+                    HOA Fees : ${{
+                      useCalculationsStore().fianceProperty.hoaFees
+                    }}
+                  </p>
+                </div>
+                <div class="flex items-center text-center">
+                  <div class="bg-[#5457CD] rounded-full h-3 w-3"></div>
+                  <p class="font-normal text-sm font-serif">
+                    PMI : ${{
+                      useCalculationsStore().fianceProperty.pmiMonthly
+                    }}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="flex flex-col space-y-8 mt-6">
+        <div class="row-span-1 col-span-2">
+          <div class="space-y-4 mr-4">
+            <h1
+              class="uppercase font-cinzel font-light text-black text-5xl mt-8"
+            >
+              Customize your mortgage payment
+            </h1>
+            <div class="flex items-center">
+              <div class="w-10 pb-[6px]">
+                <div
+                  class="h-4 w-4 bg-[#0F172A] mr-3 hover:h-6 hover:w-6 transition-all duration-200 cursor-pointer"
+                ></div>
+              </div>
+              <div class="grid grid-cols-3 w-full">
+                <div class="col-span-1 text-left">
+                  <p class="font-epilogue font-normal text-xl text-black">
+                    Principal & Interest
+                  </p>
+                </div>
+                <div class="col-span-1 text-right">
+                  <p class="font-sans font-bold text-xl text-black">$</p>
+                </div>
+                <div class="col-span-1 text-right">
+                  <p class="font-epilogue font-bold text-xl text-black">
+                    {{
+                      useCalculationsStore().fianceProperty.monthlyInterestRate
+                    }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <div class="w-10 pb-[6px]">
+                <div
+                  class="h-4 w-4 bg-[#609AF8] mr-3 hover:h-6 hover:w-6 transition-all duration-200 cursor-pointer"
+                ></div>
+              </div>
+              <div class="grid grid-cols-3 w-full">
+                <div class="col-span-1">
+                  <p class="font-epilogue font-normal text-xl text-black">
+                    Monthly Extra Payment
+                  </p>
+                </div>
+                <div class="col-span-1 text-right">
+                  <p class="font-sans font-bold text-xl text-black">$</p>
+                </div>
+                <div class="col-span-1 text-right">
+                  <p class="font-epilogue font-bold text-xl text-black">
+                    {{ useCalculationsStore().fianceProperty.extraPayments }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row-span-2 col-span-2">
           <div class="bg-slate-300 h-[1px] w-full"></div>
-          <div class="flex my-6 ml-3">
-            <div class="w-56 mx-12">
-              <div
-                class="bg-white text-xl cursor-pointer hover:underline"
-                @click="
-                  useCalculationsStore().extraFields =
-                    !useCalculationsStore().extraFields
-                "
-              >
-                + Add Extra Payments
-              </div>
-            </div>
-          </div>
-          <div class="flex items-center justify-center">
-            <div class="w-10 pb-1">
-              <div
-                class="h-6 w-6 bg-[#76DB9B] mr-3 hover:h-8 hover:w-8 transition-all duration-200 cursor-pointer"
-              ></div>
-            </div>
-            <div class="grid grid-cols-3">
-              <div class="col-span-2">
-                <p
-                  class="font-epilogue font-normal text-[29px] text-black w-full"
-                >
-                  Home insurance (per year)
-                </p>
-              </div>
-              <div class="col-span-1 text-right flex items-center">
-                <p class="text-2xl mx-4">+</p>
+          <div class="space-y-4 mt-4 w-full">
+            <div class="flex">
+              <div class="w-56">
                 <div
-                  class="border-2 border-black focus:border-black hover:border-black active:border-black"
+                  class="bg-white text-xl cursor-pointer hover:underline"
+                  @click="
+                    useCalculationsStore().extraFields =
+                      !useCalculationsStore().extraFields
+                  "
                 >
-                  <input
-                    v-model="
-                      useCalculationsStore().fianceProperty.homeInsurance
-                    "
-                    type="text"
-                    class="border-1 h-10 text-2xl w-44 font-extrabold pl-4"
-                  />
-                  <button
-                    :class="
-                      !useCalculationsStore().homeInsuranceValue
-                        ? 'bg-black text-white'
-                        : 'bg-white text-black'
-                    "
-                    @click="useCalculationsStore().homeInsurancePercentage()"
-                    class="font-semibold text-2xl h-10 w-10"
-                    :disabled="
-                      !useCalculationsStore().homeInsuranceValue && true
-                    "
+                  + Add Extra Payments
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <div class="w-10 pb-[6px]">
+                <div
+                  class="h-4 w-4 bg-[#76DB9B] mr-3 hover:h-6 hover:w-6 transition-all duration-200 cursor-pointer"
+                ></div>
+              </div>
+              <div class="grid grid-cols-3 w-[100%]">
+                <div class="col-span-2">
+                  <p
+                    class="font-epilogue font-normal text-xl text-black w-full"
                   >
-                    %
-                  </button>
-                  <button
-                    :class="
-                      useCalculationsStore().homeInsuranceValue
-                        ? 'bg-black text-white'
-                        : 'bg-white text-black'
-                    "
-                    @click="useCalculationsStore().homeInsuranceAmount()"
-                    class="font-semibold text-2xl h-10 w-10"
-                    :disabled="
-                      useCalculationsStore().homeInsuranceValue && true
-                    "
+                    Home insurance (per year)
+                  </p>
+                </div>
+                <div
+                  class="col-span-1 text-right flex items-center mx-auto justify-items-end"
+                >
+                  <p class="text-xl mx-4">+</p>
+                  <div
+                    class="flex border-[1px] border-slate-300 focus:border-slate-300 hover:border-slate-300 active:border-slate-300"
                   >
-                    $
-                  </button>
+                    <input
+                      v-model="
+                        useCalculationsStore().fianceProperty.homeInsurance
+                      "
+                      type="number"
+                      class="h-7 text-lg w-full font-semibold pl-4"
+                    />
+                    <button
+                      :class="
+                        !useCalculationsStore().homeInsuranceValue
+                          ? 'bg-black text-white'
+                          : 'bg-white text-black'
+                      "
+                      @click="useCalculationsStore().homeInsurancePercentage()"
+                      class="font-semibold text-xl h-7 w-7 font-sans"
+                      :disabled="
+                        !useCalculationsStore().homeInsuranceValue && true
+                      "
+                    >
+                      %
+                    </button>
+                    <button
+                      :class="
+                        useCalculationsStore().homeInsuranceValue
+                          ? 'bg-black text-white'
+                          : 'bg-white text-black'
+                      "
+                      @click="useCalculationsStore().homeInsuranceAmount()"
+                      class="font-semibold text-xl h-7 w-7 font-sans"
+                      :disabled="
+                        useCalculationsStore().homeInsuranceValue && true
+                      "
+                    >
+                      $
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <div class="w-10 pb-[6px]">
+                <div
+                  class="h-4 w-4 bg-[#C93D82] mr-3 hover:h-6 hover:w-6 transition-all duration-200 cursor-pointer"
+                ></div>
+              </div>
+              <div class="grid grid-cols-3 w-[100%]">
+                <div class="col-span-2">
+                  <p
+                    class="font-epilogue font-normal text-xl text-black w-full"
+                  >
+                    Property Taxes (per year)
+                  </p>
+                </div>
+                <div
+                  class="col-span-1 text-right flex items-center mx-auto justify-items-end"
+                >
+                  <p class="text-xl mx-4">+</p>
+                  <div
+                    class="flex border-[1px] border-slate-300 focus:border-slate-300 hover:border-slate-300 active:border-slate-300"
+                  >
+                    <input
+                      v-model="
+                        useCalculationsStore().fianceProperty.propertyTax
+                      "
+                      type="number"
+                      class="text-xl w-full font-semibold pl-4"
+                    />
+                    <button
+                      :class="
+                        !useCalculationsStore().propertyTaxValue
+                          ? 'bg-black text-white'
+                          : 'bg-white text-black'
+                      "
+                      @click="useCalculationsStore().propertyTaxPercentage()"
+                      class="font-semibold text-xl h-7 w-7 font-sans"
+                      :disabled="
+                        !useCalculationsStore().propertyTaxValue && true
+                      "
+                    >
+                      %
+                    </button>
+                    <button
+                      :class="
+                        useCalculationsStore().propertyTaxValue
+                          ? 'bg-black text-white'
+                          : 'bg-white text-black'
+                      "
+                      @click="useCalculationsStore().propertyTaxAmount()"
+                      class="font-sans font-semibold text-xl h-7 w-7"
+                      :disabled="
+                        useCalculationsStore().propertyTaxValue && true
+                      "
+                    >
+                      $
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <div class="w-10 pb-[6px]">
+                <div
+                  class="h-4 w-4 bg-[#EAB308] mr-3 hover:h-6 hover:w-6 transition-all duration-200 cursor-pointer"
+                ></div>
+              </div>
+              <div class="grid grid-cols-3 w-[100%]">
+                <div class="col-span-2">
+                  <p
+                    class="font-epilogue font-normal text-xl text-black w-full"
+                  >
+                    HOA Fees (per month)
+                  </p>
+                </div>
+                <div
+                  class="col-span-1 text-right flex items-center mx-auto justify-items-end"
+                >
+                  <p class="text-xl mx-4">+</p>
+                  <div
+                    class="flex border-[1px] border-slate-300 focus:border-slate-300 hover:border-slate-300 active:border-slate-300"
+                  >
+                    <button
+                      class="bg-white text-black font-semibold text-xl font-sans h-7 w-7"
+                      disabled="true"
+                    >
+                      $
+                    </button>
+                    <input
+                      v-model="useCalculationsStore().fianceProperty.hoaFees"
+                      type="text"
+                      class="text-xl w-full font-semibold pl-4 pt-[3px]"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <div class="w-10 pb-[6px]">
+                <div
+                  class="h-4 w-4 bg-[#5457CD] mr-3 hover:h-6 hover:w-6 transition-all duration-200 cursor-pointer"
+                ></div>
+              </div>
+              <div class="grid grid-cols-3 w-[100%]">
+                <div class="col-span-2">
+                  <label
+                    class="font-epilogue font-normal text-xl text-black w-full"
+                  >
+                    PMI (per year)
+                  </label>
+                </div>
+                <div
+                  class="col-span-1 text-right flex items-center mx-auto justify-items-end"
+                >
+                  <p class="text-xl mx-4">+</p>
+                  <div
+                    class="flex border-[1px] border-slate-300 focus:border-slate-300 hover:border-slate-300 active:border-slate-300"
+                  >
+                    <input
+                      v-model="useCalculationsStore().fianceProperty.pmi"
+                      type="text"
+                      class="text-lg w-full font-semibold pl-4"
+                    />
+                    <button
+                      :class="
+                        !useCalculationsStore().pmiValue
+                          ? 'bg-black text-white'
+                          : 'bg-white text-black'
+                      "
+                      @click="useCalculationsStore().pmiPercentage()"
+                      class="font-sans font-semibold text-xl h-7 w-7"
+                      :disabled="!useCalculationsStore().pmiValue && true"
+                    >
+                      %
+                    </button>
+                    <button
+                      :class="
+                        useCalculationsStore().pmiValue
+                          ? 'bg-black text-white'
+                          : 'bg-white text-black'
+                      "
+                      @click="useCalculationsStore().pmiAmount()"
+                      class="font-sans font-semibold text-xl h-7 w-7"
+                      :disabled="useCalculationsStore().pmiValue && true"
+                    >
+                      $
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="flex items-center justify-center">
-            <div class="w-10 pb-1">
-              <div
-                class="h-6 w-6 bg-[#C93D82] mr-3 hover:h-8 hover:w-8 transition-all duration-200 cursor-pointer"
-              ></div>
+
+          <div class="flex flex-row mt-6 w-[100%]">
+            <div class="border-[1px] border-slate-300 border-solid w-[72%]">
+              <p class="font-sans font-semibold text-lg text-black pt-1 pl-4">
+                Total
+                {{ useCalculationsStore().paymentFrequencyType() }} Payment
+              </p>
             </div>
-            <div class="grid grid-cols-3">
-              <div class="col-span-2">
-                <p
-                  class="font-epilogue font-normal text-[29px] text-black w-full"
+
+            <div
+              class="border-[1px] border-slate-300 border-solid flex items-center mx-auto justify-items-end w-[28%]"
+            >
+              <p class="font-sans font-semibold text-lg text-black pl-5 py-1">
+                $
+              </p>
+              <p class="font-sans font-semibold text-lg text-black pl-4">
+                {{ props.totalValue }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="my-6">
+        <h1 class="uppercase font-cinzel font-light text-black text-5xl mt-8">
+          Total Of All Payments
+        </h1>
+        <div class="bg-slate-300 h-[1px] w-full mt-4"></div>
+        <div class="flex w-full mt-4">
+          <div class="justify-start space-y-4 mt-2">
+            <p class="text-lg">Down Payment & One-time Expenses</p>
+            <p class="text-lg">Principal</p>
+            <p class="text-lg">Interest</p>
+            <p class="text-lg">Extra Payments</p>
+            <p class="text-lg">Home insurance</p>
+            <p class="text-lg">Property taxes</p>
+            <p class="text-lg">HOA fees</p>
+            <div class="text-xl">
+              PMI
+              <div class="tooltip">
+                <span
+                  ref="tooltip"
+                  @mouseover="showTooltip"
+                  @mouseleave="hideTooltip"
+                  >{{ text }}</span
                 >
-                  Property Taxes (per year)
-                </p>
-              </div>
-              <div class="col-span-1 text-right flex items-center">
-                <p class="text-2xl mx-4">+</p>
-                <div
-                  class="border-2 border-black focus:border-black hover:border-black active:border-black"
-                >
-                  <input
-                    v-model="useCalculationsStore().fianceProperty.propertyTax"
-                    type="text"
-                    class="border-1 h-10 text-2xl w-44 font-extrabold pl-4"
-                  />
-                  <button
-                    :class="
-                      !useCalculationsStore().propertyTaxValue
-                        ? 'bg-black text-white'
-                        : 'bg-white text-black'
-                    "
-                    @click="useCalculationsStore().propertyTaxPercentage()"
-                    class="font-semibold text-2xl h-10 w-10"
-                    :disabled="!useCalculationsStore().propertyTaxValue && true"
-                  >
-                    %
-                  </button>
-                  <button
-                    :class="
-                      useCalculationsStore().propertyTaxValue
-                        ? 'bg-black text-white'
-                        : 'bg-white text-black'
-                    "
-                    @click="useCalculationsStore().propertyTaxAmount()"
-                    class="font-semibold text-2xl h-10 w-10"
-                    :disabled="useCalculationsStore().propertyTaxValue && true"
-                  >
-                    $
-                  </button>
+                <div v-if="isTooltipVisible" class="tooltiptext">
+                  {{ tooltipText }}
+                  <span class="arrow"></span>
                 </div>
               </div>
             </div>
           </div>
-          <div class="flex items-center justify-center">
-            <div class="w-10 pb-1">
-              <div
-                class="h-6 w-6 bg-[#EAB308] mr-3 hover:h-8 hover:w-8 transition-all duration-200 cursor-pointer"
-              ></div>
+          <div class="w-[50%]">
+            <Chart
+              type="bar"
+              :data="chartData"
+              :options="chartOptions"
+              class="h-[350px] justify-center flex mx-12"
+            />
+          </div>
+          <div class="mx-auto justify-items-end space-y-4 mt-2 w-[25%]">
+            <div class="grid grid-cols-3">
+              <div class="col-span-1 text-left">
+                <p class="text-lg font-semibold font-sans">$</p>
+              </div>
+              <div class="col-span-2 text-right">
+                <p class="text-lg hover:font-bold">52,500</p>
+              </div>
             </div>
             <div class="grid grid-cols-3">
-              <div class="col-span-2">
-                <p
-                  class="font-epilogue font-normal text-[29px] text-black w-full"
-                >
-                  HOA Fees (per month)
-                </p>
+              <div class="col-span-1 text-left">
+                <p class="text-lg font-semibold font-sans">$</p>
               </div>
-              <div class="col-span-1 text-right flex items-center">
-                <p class="text-2xl mx-4">+</p>
-                <div
-                  class="border-2 border-black focus:border-black hover:border-black active:border-black"
-                >
-                  <button
-                    class="bg-white text-black font-bold text-2xl h-10 w-12 pt-1"
-                    disabled="true"
-                  >
-                    $
-                  </button>
-                  <input
-                    v-model="useCalculationsStore().fianceProperty.hoaFees"
-                    type="text"
-                    class="border-1 h-10 text-2xl w-52 font-extrabold pt-1 pl-2"
-                  />
-                </div>
+              <div class="col-span-2 text-right">
+                <p class="text-lg hover:font-bold">308,000</p>
+              </div>
+            </div>
+            <div class="grid grid-cols-3">
+              <div class="col-span-1 text-left">
+                <p class="text-lg font-semibold font-sans">$</p>
+              </div>
+              <div class="col-span-2 text-right">
+                <p class="text-lg hover:font-bold">287,227.82</p>
+              </div>
+            </div>
+            <div class="grid grid-cols-3">
+              <div class="col-span-1 text-left">
+                <p class="text-lg font-semibold font-sans">$</p>
+              </div>
+              <div class="col-span-2 text-right">
+                <p class="text-lg hover:font-bold">0</p>
+              </div>
+            </div>
+            <div class="grid grid-cols-3">
+              <div class="col-span-1 text-left">
+                <p class="text-lg font-semibold font-sans">$</p>
+              </div>
+              <div class="col-span-2 text-right">
+                <p class="text-lg hover:font-bold">36,750</p>
+              </div>
+            </div>
+            <div class="grid grid-cols-3">
+              <div class="col-span-1 text-left">
+                <p class="text-lg font-semibold font-sans">$</p>
+              </div>
+              <div class="col-span-2 text-right">
+                <p class="text-lg hover:font-bold">131,248.8</p>
+              </div>
+            </div>
+            <div class="grid grid-cols-3">
+              <div class="col-span-1 text-left">
+                <p class="text-lg font-semibold font-sans">$</p>
+              </div>
+              <div class="col-span-2 text-right">
+                <p class="text-lg hover:font-bold">28,800</p>
+              </div>
+            </div>
+            <div class="grid grid-cols-3">
+              <div class="col-span-1 text-left">
+                <p class="text-lg font-semibold font-sans">$</p>
+              </div>
+              <div class="col-span-2 text-right">
+                <p class="text-lg hover:font-bold">12,825.04</p>
               </div>
             </div>
           </div>
-          <div class="flex items-center justify-center">
-            <div class="w-10 pb-1">
-              <div
-                class="h-6 w-6 bg-[#5457CD] mr-3 hover:h-8 hover:w-8 transition-all duration-200 cursor-pointer"
-              ></div>
-            </div>
-            <div class="grid grid-cols-3">
-              <div class="col-span-2">
-                <p
-                  class="font-epilogue font-normal text-[29px] text-black w-full"
-                >
-                  PMI (per year)
-                </p>
-              </div>
-              <div class="col-span-1 text-right flex items-center">
-                <p class="text-2xl mx-4">+</p>
-                <div
-                  class="border-2 border-black focus:border-black hover:border-black active:border-black"
-                >
-                  <input
-                    v-model="useCalculationsStore().fianceProperty.pmi"
-                    type="text"
-                    class="border-1 h-10 text-2xl w-44 font-extrabold pl-4"
-                  />
-                  <button
-                    :class="
-                      !useCalculationsStore().pmiValue
-                        ? 'bg-black text-white'
-                        : 'bg-white text-black'
-                    "
-                    @click="useCalculationsStore().pmiPercentage()"
-                    class="font-semibold text-2xl h-10 w-10"
-                    :disabled="!useCalculationsStore().pmiValue && true"
-                  >
-                    %
-                  </button>
-                  <button
-                    :class="
-                      useCalculationsStore().pmiValue
-                        ? 'bg-black text-white'
-                        : 'bg-white text-black'
-                    "
-                    @click="useCalculationsStore().pmiAmount()"
-                    class="font-semibold text-2xl h-10 w-10"
-                    :disabled="useCalculationsStore().pmiValue && true"
-                  >
-                    $
-                  </button>
-                </div>
-              </div>
-            </div>
+        </div>
+      </div>
+
+      <div class="mt-8">
+        <h1
+          class="uppercase font-cinzel font-light text-black text-5xl"
+        >
+          Amortization Schedule
+        </h1>
+        <div class="bg-slate-300 h-[1px] w-full my-6"></div>
+        <div>
+          <div class="card my-8">
+            <apexchart
+              :options="apexChartOptions"
+              :series="series"
+              type="area"
+              height="350"
+            />
           </div>
-          <div class="grid grid-cols-3 ml-14 mr-14">
-            <div class="col-span-2 w-full">
-              <div class="border-2 border-black border-solid px-5 py-1">
-                <p class="font-sans font-bold text-3xl text-black">
-                  Total
-                  {{ useCalculationsStore().paymentFrequencyType() }} Payment
-                </p>
-              </div>
-            </div>
+        </div>
+        <div class="mt-8">
+          <div class="grid grid-cols-3">
             <div class="col-span-1">
-              <div class="border-2 border-black border-solid flex items-center">
-                <p class="font-sans font-bold text-3xl text-black px-5 py-1">
-                  $
-                </p>
-                <p class="font-sans font-bold text-3xl text-black pl-4">
-                  {{ props.totalValue }}
-                </p>
-              </div>
+              <label class="text-2xl font-epilogue font-light uppercase">
+                Mortgage Payoff Date:
+              </label>
+            </div>
+            <div class="col-span-2">
+              <label class="text-2xl font-epilogue font-light uppercase">
+                Payment breakdown as of 2027
+              </label>
             </div>
           </div>
-        </div>
-      </div>
-      <h1
-        class="uppercase font-cinzel font-extralight text-black text-[80px] mt-8"
-      >
-        Total Of All Payments
-      </h1>
-      <div class="bg-slate-300 mx-8 h-0.5 w-full"></div>
-      <div class="flex w-full group">
-        <div class="justify-start mx-6 space-y-[50px] mt-14 pr-4">
-          <p class="text-2xl">Down Payment & One-time Expenses</p>
-          <p class="text-2xl">Principal</p>
-          <p class="text-2xl">Interest</p>
-          <p class="text-2xl">Extra Payments</p>
-          <p class="text-2xl">Home insurance</p>
-          <p class="text-2xl">Property taxes</p>
-          <p class="text-2xl">HOA fees</p>
-          <div class="text-2xl">
-            PMI
-            <div class="tooltip">
-              <span
-                ref="tooltip"
-                @mouseover="showTooltip"
-                @mouseleave="hideTooltip"
-                >{{ text }}</span
-              >
-              <div v-if="isTooltipVisible" class="tooltiptext">
-                {{ tooltipText }}
-                <span class="arrow"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="w-[50%]">
-          <Chart
-            type="bar"
-            :data="chartData"
-            :options="chartOptions"
-            class="h-[670px] my-10 justify-center flex mx-22"
-          />
-        </div>
-        <div class="w-[20%] space-y-[50px] mt-16 mx-6">
-          <div class="grid grid-cols-2">
-            <p class="text-3xl font-bold">$</p>
-            <p class="text-2xl hover:font-extrabold text-right">52,500</p>
-          </div>
-          <div class="grid grid-cols-2">
-            <p class="text-3xl text-left font-bold">$</p>
-            <p class="text-2xl text-right hover:font-extrabold">308,000</p>
-          </div>
-          <div class="grid grid-cols-2">
-            <p class="text-3xl font-bold">$</p>
-            <p class="text-2xl text-right hover:font-extrabold">287,227.82</p>
-          </div>
-          <div class="grid grid-cols-2">
-            <p class="text-3xl font-bold">$</p>
-            <p class="text-2xl text-right hover:font-extrabold">0</p>
-          </div>
-          <div class="grid grid-cols-2">
-            <p class="text-3xl font-bold">$</p>
-            <p class="text-2xl text-right hover:font-extrabold">36,750</p>
-          </div>
-          <div class="grid grid-cols-2">
-            <p class="text-3xl font-bold">$</p>
-            <p class="text-2xl text-right hover:font-extrabold">131,248.8</p>
-          </div>
-          <div class="grid grid-cols-2">
-            <p class="text-3xl font-bold">$</p>
-            <p class="text-2xl text-right hover:font-extrabold">28,800</p>
-          </div>
-          <div class="grid grid-cols-2">
-            <p class="text-3xl font-bold">$</p>
-            <p class="text-2xl text-right hover:font-extrabold">12,825.04</p>
-          </div>
-        </div>
-      </div>
-      <h1 class="uppercase font-cinzel font-extralight text-black text-[80px]">
-        Amortization Schedule
-      </h1>
-      <div class="bg-slate-300 h-0.5 w-full"></div>
-      <div>
-        <div class="card my-8">
-          <apexchart
-            :options="apexChartOptions"
-            :series="series"
-            type="area"
-            height="350"
-          />
-        </div>
-      </div>
-      <div class="my-8">
-        <div class="grid grid-cols-3">
-          <div class="col-span-1">
-            <label class="text-3xl font-epilogue font-normal uppercase">
-              Mortgage Payoff Date:
-            </label>
-          </div>
-          <div class="col-span-2">
-            <label class="text-3xl font-epilogue font-normal uppercase">
-              Payment breakdown as of 2027
-            </label>
-          </div>
-        </div>
 
-        <div class="bg-slate-300 h-0.5 w-full my-6"></div>
+          <div class="bg-slate-300 h-[1px] w-full my-6"></div>
 
-        <div class="grid grid-cols-3">
-          <div class="col-span-1">
-            <div class="grid grid-rows-3">
-              <div class="row-span-1">
-                <label class="text-3xl font-epilogue font-extralight uppercase">
-                  February 21
-                </label>
-              </div>
-              <div class="row-span-2">
-                <label class="text-8xl font-serif font-normal uppercase">
-                  2054
-                </label>
+          <div class="grid grid-cols-3">
+            <div class="col-span-1 mt-3">
+              <div class="grid grid-rows-3">
+                <div class="row-span-1">
+                  <label
+                    class="text-3xl font-epilogue font-light uppercase"
+                  >
+                    February 28
+                  </label>
+                </div>
+                <div class="row-span-2">
+                  <label class="text-7xl font-sans font-normal uppercase">
+                    2054
+                  </label>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="col-span-2">
-            <div class="grid grid-rows-3">
-              <div class="row-span-1">
-                <div class="flex items-center justify-center pl-4">
-                  <div class="w-10">
-                    <div
-                      class="h-6 w-6 bg-[#3FA9F5] mr-3 hover:h-8 hover:w-8 transition-all duration-200 cursor-pointer"
-                    ></div>
-                  </div>
-                  <div class="grid grid-cols-3 w-full">
-                    <div class="col-span-1 text-left">
-                      <p
-                        class="font-epilogue font-normal text-[29px] text-black"
-                      >
-                        Remaining Balance
-                      </p>
+            <div class="col-span-2">
+              <div class="grid grid-rows-3">
+                <div class="row-span-1">
+                  <div class="flex items-center justify-center pl-4">
+                    <div class="w-10 pb-[6px]">
+                      <div
+                        class="h-4 w-4 bg-[#3FA9F5] mr-3 hover:h-8 hover:w-8 transition-all duration-200 cursor-pointer"
+                      ></div>
                     </div>
-                    <div class="col-span-1 text-right">
-                      <p
-                        class="font-epilogue font-normal text-[29px] text-black"
-                      >
-                        $
-                      </p>
-                    </div>
-                    <div class="col-span-1 text-right">
-                      <p
-                        class="font-epilogue font-normal text-[29px] text-black"
-                      >
-                        22,440.18
-                      </p>
+                    <div class="grid grid-cols-3 w-full my-2">
+                      <div class="col-span-1 text-left">
+                        <p
+                          class="font-epilogue font-normal text-xl text-black"
+                        >
+                          Remaining Balance
+                        </p>
+                      </div>
+                      <div class="col-span-1 text-right">
+                        <p
+                          class="font-sans font-normal text-xl text-black"
+                        >
+                          $
+                        </p>
+                      </div>
+                      <div class="col-span-1 text-right">
+                        <p
+                          class="font-epilogue font-normal text-xl text-black"
+                        >
+                          22,440.18
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="row-span-1">
-                <div class="flex items-center justify-center pl-4">
-                  <div class="w-10">
-                    <div
-                      class="h-6 w-6 bg-[#0F182D] mr-3 hover:h-8 hover:w-8 transition-all duration-200 cursor-pointer"
-                    ></div>
-                  </div>
-                  <div class="grid grid-cols-3 w-full">
-                    <div class="col-span-1 text-left">
-                      <p
-                        class="font-epilogue font-normal text-[29px] text-black"
-                      >
-                        Principal
-                      </p>
+                <div class="row-span-1">
+                  <div class="flex items-center justify-center pl-4">
+                    <div class="w-10 pb-[6px]">
+                      <div
+                        class="h-4 w-4 bg-[#0F182D] mr-3 hover:h-8 hover:w-8 transition-all duration-200 cursor-pointer"
+                      ></div>
                     </div>
-                    <div class="col-span-1 text-right">
-                      <p
-                        class="font-epilogue font-normal text-[29px] text-black"
-                      >
-                        $
-                      </p>
-                    </div>
-                    <div class="col-span-1 text-right">
-                      <p
-                        class="font-epilogue font-normal text-[29px] text-black"
-                      >
-                        18,221.64
-                      </p>
+                    <div class="grid grid-cols-3 w-full my-2">
+                      <div class="col-span-1 text-left">
+                        <p
+                          class="font-epilogue font-normal text-xl text-black"
+                        >
+                          Principal
+                        </p>
+                      </div>
+                      <div class="col-span-1 text-right">
+                        <p
+                          class="font-sans font-normal text-xl text-black"
+                        >
+                          $
+                        </p>
+                      </div>
+                      <div class="col-span-1 text-right">
+                        <p
+                          class="font-epilogue font-normal text-xl text-black"
+                        >
+                          18,221.64
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="row-span-1">
-                <div class="flex items-center justify-center pl-4">
-                  <div class="w-10">
-                    <div
-                      class="h-6 w-6 bg-[#FF7F50] mr-3 hover:h-8 hover:w-8 transition-all duration-200 cursor-pointer"
-                    ></div>
-                  </div>
-                  <div class="grid grid-cols-3 w-full">
-                    <div class="col-span-1 text-left">
-                      <p
-                        class="font-epilogue font-normal text-[29px] text-black"
-                      >
-                        Interest
-                      </p>
+                <div class="row-span-1">
+                  <div class="flex items-center justify-center pl-4">
+                    <div class="w-10 pb-[6px]">
+                      <div
+                        class="h-4 w-4 bg-[#FF7F50] mr-3 hover:h-8 hover:w-8 transition-all duration-200 cursor-pointer"
+                      ></div>
                     </div>
-                    <div class="col-span-1 text-right">
-                      <p
-                        class="font-epilogue font-normal text-[29px] text-black"
-                      >
-                        $
-                      </p>
-                    </div>
-                    <div class="col-span-1 text-right">
-                      <p
-                        class="font-epilogue font-normal text-[29px] text-black"
-                      >
-                        1,619.28
-                      </p>
+                    <div class="grid grid-cols-3 w-full my-2">
+                      <div class="col-span-1 text-left">
+                        <p
+                          class="font-epilogue font-normal text-xl text-black"
+                        >
+                          Interest
+                        </p>
+                      </div>
+                      <div class="col-span-1 text-right">
+                        <p
+                          class="font-sans font-normal text-xl text-black"
+                        >
+                          $
+                        </p>
+                      </div>
+                      <div class="col-span-1 text-right">
+                        <p
+                          class="font-epilogue font-normal text-xl text-black"
+                        >
+                          1,619.28
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -734,7 +798,7 @@ const setChartData = () => {
           "#babaf8",
         ],
         hoverBorderWidth: 3,
-        barThickness: 50,
+        barThickness: 30,
         order: 8,
         hoverOffset: 20,
         // data: setPieMap.value.map((x) => x.values),
@@ -1052,6 +1116,7 @@ const setPieData = () => {
         ],
         hoverBorderWidth: 7,
         hoverOffset: 20,
+        cutout: '70%'
       },
     ],
   };
@@ -1083,20 +1148,24 @@ const plugins = [
       const ctx = chart.ctx;
 
       ctx.restore();
-      const fontSize = (height / 350).toFixed(2);
+      const fontSize = (height / 150).toFixed(2);
       ctx.font = fontSize + "em sans-serif";
       ctx.textBaseline = "middle";
+      
+      const fontSize2 = (height / 300).toFixed(2);
+      ctx.font2 = fontSize2 + "em sans-serif";
+      ctx.textBaseline = "middle";
 
-      const text = `$${useCalculationsStore().getCalculations}`;
+      const text = `$ ${useCalculationsStore().getCalculations}`;
       const text2 = `Montly Payment`;
       const textX1 = Math.round((width - ctx.measureText(text).width) / 2);
-      const textX2 = Math.round((width - ctx.measureText(text2).width) / 1.55);
+      const textX2 = Math.round((width - ctx.measureText(text2).width) / 1);
       const textY = height / 2;
 
-      ctx.font = "bold " + ctx.font;
+      ctx.font = "" + ctx.font;
       ctx.fillText(text, textX1 - 5, textY);
-      ctx.font = fontSize + "em sans-serif";
-      ctx.fillText(text2, textX2 - 60, textY + 35);
+      ctx.font = fontSize2 + "em sans-serif";
+      ctx.fillText(text2, textX2 + 22, textY + 38);
       ctx.save();
     },
   },
@@ -1137,7 +1206,7 @@ const plugins = [
 
 .tooltip .arrow {
   position: absolute;
-  bottom: -16px;
+  bottom: -15px;
   /* Adjust the position of the arrow */
   left: 50%;
   border-width: 8px;
