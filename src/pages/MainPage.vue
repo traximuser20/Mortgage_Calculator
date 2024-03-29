@@ -1,16 +1,18 @@
 <template>
   <div class="w-[100%]">
     <div class="flex flex-row items-center mx-4 mb-12">
-      <p class="font-sans font-bold text-5xl pb-3 text-black pr-4">$</p>
-      <p class="font-epilogue font-bold text-5xl text-black w-96">
+      <p class="font-sans font-bold text-5xl text-black pr-4">$</p>
+      <p class="font-sans font-bold text-5xl text-black w-96">
         {{ props.totalValue }}
       </p>
       <div class="bg-slate-300 h-20 w-[1px] mx-8"></div>
-      <p class="font-sans font-normal text-2xl text-black">
+      <p class="font-sans font-normal text-xl text-black">
         Your estimated Monthly payment
       </p>
     </div>
-    <h1 class="uppercase font-cinzel font-light text-black text-5xl mb-3">
+    <h1
+      class="Cinzel uppercase font-cinzel font-light text-black text-5xl mb-3"
+    >
       Payment Breakdown
     </h1>
     <div class="bg-slate-300 h-[1px] w-full"></div>
@@ -84,19 +86,19 @@
         <div class="row-span-1 col-span-2">
           <div class="space-y-4 mr-4">
             <h1
-              class="uppercase font-cinzel font-light text-black text-5xl mt-8"
+              class="Cinzel uppercase font-cinzel font-light text-black text-5xl mt-8"
             >
               Customize your mortgage payment
             </h1>
-            <div class="flex items-center">
-              <div class="w-10 pb-[6px]">
+            <div class="flex items-center group">
+              <div class="w-10">
                 <div
-                  class="h-4 w-4 bg-[#0F172A] mr-3 hover:h-6 hover:w-6 transition-all duration-200 cursor-pointer"
+                  class="h-4 w-4 bg-[#0F172A] mr-3 group-hover:h-6 group-hover:w-6 transition-all duration-200 cursor-pointer"
                 ></div>
               </div>
               <div class="grid grid-cols-3 w-full">
                 <div class="col-span-1 text-left">
-                  <p class="font-epilogue font-normal text-xl text-black">
+                  <p class="font-sans font-normal text-xl text-black">
                     Principal & Interest
                   </p>
                 </div>
@@ -104,23 +106,23 @@
                   <p class="font-sans font-bold text-xl text-black">$</p>
                 </div>
                 <div class="col-span-1 text-right">
-                  <p class="font-epilogue font-bold text-xl text-black">
+                  <p class="font-sans font-bold text-xl text-black">
                     {{
-                      useCalculationsStore().fianceProperty.monthlyInterestRate
+                      useCalculationsStore().currencyFormat(useCalculationsStore().fianceProperty.monthlyInterestRate)
                     }}
                   </p>
                 </div>
               </div>
             </div>
-            <div class="flex items-center">
-              <div class="w-10 pb-[6px]">
+            <div class="flex items-center group">
+              <div class="w-10">
                 <div
-                  class="h-4 w-4 bg-[#609AF8] mr-3 hover:h-6 hover:w-6 transition-all duration-200 cursor-pointer"
+                  class="h-4 w-4 bg-[#609AF8] mr-3 group-hover:h-6 group-hover:w-6 transition-all duration-200 cursor-pointer"
                 ></div>
               </div>
               <div class="grid grid-cols-3 w-full">
                 <div class="col-span-1">
-                  <p class="font-epilogue font-normal text-xl text-black">
+                  <p class="font-sans font-normal text-xl text-black">
                     Monthly Extra Payment
                   </p>
                 </div>
@@ -128,7 +130,7 @@
                   <p class="font-sans font-bold text-xl text-black">$</p>
                 </div>
                 <div class="col-span-1 text-right">
-                  <p class="font-epilogue font-bold text-xl text-black">
+                  <p class="font-sans font-bold text-xl text-black">
                     {{ useCalculationsStore().fianceProperty.extraPayments }}
                   </p>
                 </div>
@@ -153,17 +155,15 @@
                 </div>
               </div>
             </div>
-            <div class="flex items-center">
-              <div class="w-10 pb-[6px]">
+            <div class="flex items-center group">
+              <div class="w-10">
                 <div
-                  class="h-4 w-4 bg-[#76DB9B] mr-3 hover:h-6 hover:w-6 transition-all duration-200 cursor-pointer"
+                  class="h-4 w-4 bg-[#76DB9B] mr-3 group-hover:h-6 group-hover:w-6 transition-all duration-200 cursor-pointer"
                 ></div>
               </div>
               <div class="grid grid-cols-3 w-[100%]">
                 <div class="col-span-2">
-                  <p
-                    class="font-epilogue font-normal text-xl text-black w-full"
-                  >
+                  <p class="font-sans font-normal text-xl text-black w-full">
                     Home insurance (per year)
                   </p>
                 </div>
@@ -213,17 +213,15 @@
                 </div>
               </div>
             </div>
-            <div class="flex items-center">
-              <div class="w-10 pb-[6px]">
+            <div class="flex items-center group">
+              <div class="w-10">
                 <div
-                  class="h-4 w-4 bg-[#C93D82] mr-3 hover:h-6 hover:w-6 transition-all duration-200 cursor-pointer"
+                  class="h-4 w-4 bg-[#C93D82] mr-3 group-hover:h-6 group-hover:w-6 transition-all duration-200 cursor-pointer"
                 ></div>
               </div>
               <div class="grid grid-cols-3 w-[100%]">
                 <div class="col-span-2">
-                  <p
-                    class="font-epilogue font-normal text-xl text-black w-full"
-                  >
+                  <p class="font-sans font-normal text-xl text-black w-full">
                     Property Taxes (per year)
                   </p>
                 </div>
@@ -273,20 +271,33 @@
                 </div>
               </div>
             </div>
-            <div class="flex items-center">
-              <div class="w-10 pb-[6px]">
+            <div class="flex items-center group">
+              <div class="w-10 pb-[4px]">
                 <div
-                  class="h-4 w-4 bg-[#EAB308] mr-3 hover:h-6 hover:w-6 transition-all duration-200 cursor-pointer"
+                  class="h-4 w-4 bg-[#EAB308] mr-3 group-hover:h-6 group-hover:w-6 transition-all duration-200 cursor-pointer"
                 ></div>
               </div>
               <div class="grid grid-cols-3 w-[100%]">
-                <div class="col-span-2">
+                <div class="tooltipHOA col-span-2">
                   <p
-                    class="font-epilogue font-normal text-xl text-black w-full"
+                    ref="tooltipHOA"
+                    @mouseover="showTooltip"
+                    @mouseleave="hideTooltip"
+                    class="font-sans font-normal text-xl text-black w-full"
                   >
+                    {{ textHOA }}
+                  </p>
+                  <div v-if="isTooltipVisible" class="tooltiptextHOA">
+                    {{ tooltipTitle }}
+                    <span class="arrowHOA"></span>
+                  </div>
+                </div>
+
+                <!-- <div class="col-span-2">
+                  <p class="font-sans font-normal text-xl text-black w-full">
                     HOA Fees (per month)
                   </p>
-                </div>
+                </div> -->
                 <div
                   class="col-span-1 text-right flex items-center mx-auto justify-items-end"
                 >
@@ -309,20 +320,34 @@
                 </div>
               </div>
             </div>
-            <div class="flex items-center">
-              <div class="w-10 pb-[6px]">
+            <div class="flex items-center group">
+              <div class="w-10">
                 <div
-                  class="h-4 w-4 bg-[#5457CD] mr-3 hover:h-6 hover:w-6 transition-all duration-200 cursor-pointer"
+                  class="h-4 w-4 bg-[#5457CD] mr-3 group-hover:h-6 group-hover:w-6 transition-all duration-200 cursor-pointer"
                 ></div>
               </div>
               <div class="grid grid-cols-3 w-[100%]">
-                <div class="col-span-2">
+                <div class="tooltipPMI col-span-2">
+                  <p
+                    ref="tooltipPMI"
+                    @mouseover="showTooltip"
+                    @mouseleave="hideTooltip"
+                    class="font-sans font-normal text-xl text-black w-full"
+                  >
+                    {{ textPMI }}
+                  </p>
+                  <div v-if="isTooltipVisible" class="tooltiptextPMI">
+                    {{ tooltipTitlePMI }}
+                    <span class="arrowPMI"></span>
+                  </div>
+                </div>
+                <!-- <div class="col-span-2">
                   <label
-                    class="font-epilogue font-normal text-xl text-black w-full"
+                    class="font-sans font-normal text-xl text-black w-full"
                   >
                     PMI (per year)
                   </label>
-                </div>
+                </div> -->
                 <div
                   class="col-span-1 text-right flex items-center mx-auto justify-items-end"
                 >
@@ -366,7 +391,7 @@
           </div>
 
           <div class="flex flex-row mt-6 w-[100%]">
-            <div class="border-[1px] border-slate-300 border-solid w-[72%]">
+            <div class="border-[1px] border-slate-300 border-solid w-[73%]">
               <p class="font-sans font-semibold text-lg text-black pt-1 pl-4">
                 Total
                 {{ useCalculationsStore().paymentFrequencyType() }} Payment
@@ -374,7 +399,7 @@
             </div>
 
             <div
-              class="border-[1px] border-slate-300 border-solid flex items-center mx-auto justify-items-end w-[28%]"
+              class="border-[1px] border-slate-300 border-solid flex items-center mx-auto justify-items-end w-[27%]"
             >
               <p class="font-sans font-semibold text-lg text-black pl-5 py-1">
                 $
@@ -388,7 +413,9 @@
       </div>
 
       <div class="my-6">
-        <h1 class="uppercase font-cinzel font-light text-black text-5xl mt-8">
+        <h1
+          class="Cinzel uppercase font-cinzel font-light text-black text-5xl mt-8"
+        >
           Total Of All Payments
         </h1>
         <div class="bg-slate-300 h-[1px] w-full mt-4"></div>
@@ -495,9 +522,7 @@
       </div>
 
       <div class="mt-8">
-        <h1
-          class="uppercase font-cinzel font-light text-black text-5xl"
-        >
+        <h1 class="Cinzel uppercase font-cinzel font-light text-black text-5xl">
           Amortization Schedule
         </h1>
         <div class="bg-slate-300 h-[1px] w-full my-6"></div>
@@ -514,12 +539,12 @@
         <div class="mt-8">
           <div class="grid grid-cols-3">
             <div class="col-span-1">
-              <label class="text-2xl font-epilogue font-light uppercase">
+              <label class="Cinzel text-2xl font-sans font-light uppercase">
                 Mortgage Payoff Date:
               </label>
             </div>
             <div class="col-span-2">
-              <label class="text-2xl font-epilogue font-light uppercase">
+              <label class="Cinzel text-2xl font-sans font-light uppercase">
                 Payment breakdown as of 2027
               </label>
             </div>
@@ -531,9 +556,7 @@
             <div class="col-span-1 mt-3">
               <div class="grid grid-rows-3">
                 <div class="row-span-1">
-                  <label
-                    class="text-3xl font-epilogue font-light uppercase"
-                  >
+                  <label class="text-3xl font-sans font-light uppercase">
                     February 28
                   </label>
                 </div>
@@ -548,30 +571,24 @@
               <div class="grid grid-rows-3">
                 <div class="row-span-1">
                   <div class="flex items-center justify-center pl-4">
-                    <div class="w-10 pb-[6px]">
+                    <div class="w-10">
                       <div
                         class="h-4 w-4 bg-[#3FA9F5] mr-3 hover:h-8 hover:w-8 transition-all duration-200 cursor-pointer"
                       ></div>
                     </div>
                     <div class="grid grid-cols-3 w-full my-2">
                       <div class="col-span-1 text-left">
-                        <p
-                          class="font-epilogue font-normal text-xl text-black"
-                        >
+                        <p class="font-sans font-normal text-xl text-black">
                           Remaining Balance
                         </p>
                       </div>
                       <div class="col-span-1 text-right">
-                        <p
-                          class="font-sans font-normal text-xl text-black"
-                        >
+                        <p class="font-sans font-normal text-xl text-black">
                           $
                         </p>
                       </div>
                       <div class="col-span-1 text-right">
-                        <p
-                          class="font-epilogue font-normal text-xl text-black"
-                        >
+                        <p class="font-sans font-normal text-xl text-black">
                           22,440.18
                         </p>
                       </div>
@@ -580,30 +597,24 @@
                 </div>
                 <div class="row-span-1">
                   <div class="flex items-center justify-center pl-4">
-                    <div class="w-10 pb-[6px]">
+                    <div class="w-10">
                       <div
                         class="h-4 w-4 bg-[#0F182D] mr-3 hover:h-8 hover:w-8 transition-all duration-200 cursor-pointer"
                       ></div>
                     </div>
                     <div class="grid grid-cols-3 w-full my-2">
                       <div class="col-span-1 text-left">
-                        <p
-                          class="font-epilogue font-normal text-xl text-black"
-                        >
+                        <p class="font-sans font-normal text-xl text-black">
                           Principal
                         </p>
                       </div>
                       <div class="col-span-1 text-right">
-                        <p
-                          class="font-sans font-normal text-xl text-black"
-                        >
+                        <p class="font-sans font-normal text-xl text-black">
                           $
                         </p>
                       </div>
                       <div class="col-span-1 text-right">
-                        <p
-                          class="font-epilogue font-normal text-xl text-black"
-                        >
+                        <p class="font-sans font-normal text-xl text-black">
                           18,221.64
                         </p>
                       </div>
@@ -612,30 +623,24 @@
                 </div>
                 <div class="row-span-1">
                   <div class="flex items-center justify-center pl-4">
-                    <div class="w-10 pb-[6px]">
+                    <div class="w-10">
                       <div
                         class="h-4 w-4 bg-[#FF7F50] mr-3 hover:h-8 hover:w-8 transition-all duration-200 cursor-pointer"
                       ></div>
                     </div>
                     <div class="grid grid-cols-3 w-full my-2">
                       <div class="col-span-1 text-left">
-                        <p
-                          class="font-epilogue font-normal text-xl text-black"
-                        >
+                        <p class="font-sans font-normal text-xl text-black">
                           Interest
                         </p>
                       </div>
                       <div class="col-span-1 text-right">
-                        <p
-                          class="font-sans font-normal text-xl text-black"
-                        >
+                        <p class="font-sans font-normal text-xl text-black">
                           $
                         </p>
                       </div>
                       <div class="col-span-1 text-right">
-                        <p
-                          class="font-epilogue font-normal text-xl text-black"
-                        >
+                        <p class="font-sans font-normal text-xl text-black">
                           1,619.28
                         </p>
                       </div>
@@ -658,7 +663,19 @@ import VueApexCharts from "vue3-apexcharts";
 const tooltipText = ref(
   "Each year, your PMI is recalculated using your current loan balance, so the amount you pay decreases as you pay down the loan. The Homeowners Protection Act of 1998 requires that lenders remove private mortgage insurance when a borrower reaches a 78 percent loan-to-value ratio."
 );
+
+const tooltipTitle = ref(
+  "Regular payments made by homeowners to a Homeowners Association for communal area upkeep and services like landscaping, snow removal, and trash collection."
+);
+
+const tooltipTitlePMI = ref(
+  "Private mortgage insurance (PMI) is a type of mortgage insurance a borrower might be required to buy if they take out a conventional loan with a down payment of less than 20 percent of the purchase price. PMI protects the lender when a borrower defaults on a mortgage loan. Contact your lender for more details."
+);
+
+// Store to handle calculations data
 const text = ref("(until February 21, 2031)");
+const textHOA = ref("HOA Fees (per month)");
+const textPMI = ref("PMI (per year)");
 const isTooltipVisible = ref(false);
 
 const showTooltip = () => {
@@ -1116,7 +1133,7 @@ const setPieData = () => {
         ],
         hoverBorderWidth: 7,
         hoverOffset: 20,
-        cutout: '70%'
+        cutout: "70%",
       },
     ],
   };
@@ -1151,12 +1168,12 @@ const plugins = [
       const fontSize = (height / 150).toFixed(2);
       ctx.font = fontSize + "em sans-serif";
       ctx.textBaseline = "middle";
-      
+
       const fontSize2 = (height / 300).toFixed(2);
       ctx.font2 = fontSize2 + "em sans-serif";
       ctx.textBaseline = "middle";
 
-      const text = `$ ${useCalculationsStore().getCalculations}`;
+      const text = `$ ${props.totalValue}`;
       const text2 = `Montly Payment`;
       const textX1 = Math.round((width - ctx.measureText(text).width) / 2);
       const textX2 = Math.round((width - ctx.measureText(text2).width) / 1);
@@ -1165,7 +1182,7 @@ const plugins = [
       ctx.font = "" + ctx.font;
       ctx.fillText(text, textX1 - 5, textY);
       ctx.font = fontSize2 + "em sans-serif";
-      ctx.fillText(text2, textX2 + 22, textY + 38);
+      ctx.fillText(text2, textX2 + 25, textY + 38);
       ctx.save();
     },
   },
@@ -1212,6 +1229,86 @@ const plugins = [
   border-width: 8px;
   border-style: solid;
   border-color: black transparent transparent transparent;
+  transform: translateX(-50%);
+}
+
+.tooltipHOA {
+  position: relative;
+  display: inline-block;
+  text-align: start;
+}
+
+.tooltipHOA .tooltiptextHOA {
+  visibility: hidden;
+  background-color: black;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  bottom: -90%;
+  z-index: 1;
+  width: 425px;
+  left: -50%;
+  font-size: medium;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 50s;
+}
+
+.tooltipHOA:hover .tooltiptextHOA {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltipHOA .arrowHOA {
+  position: absolute;
+  bottom: 40%;
+  /* Adjust the position of the arrow */
+  left: 102%;
+  border-width: 8px;
+  border-style: solid;
+  border-color: transparent transparent transparent black;
+  transform: translateX(-50%);
+}
+
+.tooltipPMI {
+  position: relative;
+  display: inline-block;
+  text-align: start;
+}
+
+.tooltipPMI .tooltiptextPMI {
+  visibility: hidden;
+  background-color: black;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  bottom: -210%;
+  z-index: 1;
+  width: 425px;
+  left: -50%;
+  font-size: medium;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 50s;
+}
+
+.tooltipPMI:hover .tooltiptextPMI {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltipPMI .arrowPMI {
+  position: absolute;
+  bottom: 40%;
+  /* Adjust the position of the arrow */
+  left: 102%;
+  border-width: 8px;
+  border-style: solid;
+  border-color: transparent transparent transparent black;
   transform: translateX(-50%);
 }
 </style>
